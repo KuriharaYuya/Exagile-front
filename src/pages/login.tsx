@@ -1,5 +1,6 @@
 import { getAuth, signInWithPopup } from "firebase/auth";
 import React from "react";
+import { fetchSignUp } from "./apis/signup";
 import { provider } from "./firebase/init";
 const auth = getAuth();
 export const Login = () => {
@@ -10,8 +11,11 @@ export const Login = () => {
       console.log(result);
     });
   };
-  const checkCurrentUser = () => {
+  const checkCurrentUser = async () => {
     console.log(auth.currentUser, "ウエイ");
+    await fetchSignUp("3h1b3h24g3f1", "aaayuyakurihara").then((res) =>
+      console.log(res)
+    );
   };
   return (
     <>
