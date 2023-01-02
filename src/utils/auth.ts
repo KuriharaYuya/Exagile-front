@@ -1,20 +1,21 @@
-import { getAuth, signInWithPopup } from "firebase/auth";
+import { Auth, getAuth, signInWithPopup } from "firebase/auth";
 import { fetchSignUp } from "../pages/apis/signup";
 import { provider } from "../pages/firebase/init";
-const auth = getAuth();
 
-const signUpWithGoogle = () => {
+const auth: Auth = getAuth() as Auth;
+
+const getAccessToken = async () => {
+  const idToken = await auth.currentUser!.getIdToken();
+  return idToken;
+};
+const signUpWithGoogle = async () => {
   // Googleでログイン
-  signInWithPopup(auth, provider).then((result) => {
-    console.log(result);
+  await signInWithPopup(auth, provider);
+  return getAccessToken().then(async (token) => {
+    const accessToken: string = token;
+    const res = await fetchSignUp(accessToken).then((res) => res);
+    return { success: true, data: res.data };
   });
 };
 
-const checkCurrentUser = async () => {
-  console.log(auth.currentUser, "ウエイ");
-  await fetchSignUp("3h1b3h24g3f1", "aaayuyakurihara").then((res) =>
-    console.log(res)
-  );
-};
-
-export { signUpWithGoogle, checkCurrentUser };
+export { signUpWithGoogle };
