@@ -1,5 +1,5 @@
 import axios from "axios";
-import { login, sessionCheck, signup } from "../urls";
+import { login, logout, sessionCheck, signup } from "../urls";
 
 export const fetchSignUp = async (accessToken: string) => {
   return await axios
@@ -15,4 +15,8 @@ export const fetchLogin = async (accessToken: string) => {
 
 export const fetchSessionCheck = async () => {
   return await axios.get(sessionCheck).then((res) => res.data);
+};
+
+export const fetchLogout = async () => {
+  axios.delete(logout).then((res) => res);
 };

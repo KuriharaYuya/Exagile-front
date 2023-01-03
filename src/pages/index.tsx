@@ -1,6 +1,6 @@
 import Router from "next/router";
 import { useEffect } from "react";
-import { isLoggedIn } from "../utils/auth";
+import { isLoggedIn, logout } from "../utils/auth";
 
 export default function Home() {
   useEffect(() => {
@@ -9,5 +9,14 @@ export default function Home() {
       Router.push("/signup");
     }
   }, []);
-  return <h1>ホームです！</h1>;
+  const handleLogout = () => {
+    logout();
+    Router.push("/signup");
+  };
+  return (
+    <>
+      <h1>ホームです！</h1>
+      <button onClick={handleLogout}>ログアウト</button>
+    </>
+  );
 }

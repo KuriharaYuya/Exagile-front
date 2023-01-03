@@ -1,5 +1,5 @@
 import { Auth, getAuth, signInWithPopup } from "firebase/auth";
-import { fetchLogin, fetchSignUp } from "../pages/apis/signup";
+import { fetchLogin, fetchLogout, fetchSignUp } from "../pages/apis/signup";
 import { provider } from "../pages/firebase/init";
 
 const auth: Auth = getAuth() as Auth;
@@ -39,4 +39,8 @@ const getCookie = (name: string): string | undefined => {
     return result;
   }
   return undefined;
+};
+
+export const logout = () => {
+  fetchLogout();
 };
