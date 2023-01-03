@@ -6,12 +6,12 @@ export default function Home() {
   useEffect(() => {
     const loggedIn = isLoggedIn();
     if (!loggedIn) {
-      Router.push("/signup");
+      Router.push("/auth");
     }
   }, []);
   const handleLogout = () => {
     logout();
-    Router.push("/signup");
+    Router.push("/auth");
   };
   return (
     <>

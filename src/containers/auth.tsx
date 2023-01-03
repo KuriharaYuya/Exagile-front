@@ -1,15 +1,9 @@
 import Router from "next/router";
 import React, { useEffect, useState } from "react";
-import { fetchSessionCheck } from "../pages/apis/signup";
+import { fetchSessionCheck } from "../apis/auth";
 import { isLoggedIn, signInWithGoogle, signUpWithGoogle } from "../utils/auth";
 
 const Auth = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  useEffect(() => {
-    setLoggedIn(isLoggedIn());
-  }, []);
-
   const handleRegister = async () => {
     await signUpWithGoogle().then((res) => res.success);
     if (isLoggedIn()) Router.push("/");
@@ -29,12 +23,8 @@ const Auth = () => {
       <div>ユーザー登録</div>
       <button onClick={handleRegister}>Googleでユーザー登録</button>
       <br />
-      {!loggedIn && (
-        <>
-          <div>ログイン</div>
-          <button onClick={handleLogin}>Googleでログイン</button>
-        </>
-      )}
+      <div>ログイン</div>
+      <button onClick={handleLogin}>Googleでログイン</button>
       <br />
       <button onClick={handleCurrentUser}>ログイン中のユーザー</button>
     </>

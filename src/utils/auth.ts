@@ -1,6 +1,6 @@
 import { Auth, getAuth, signInWithPopup } from "firebase/auth";
-import { fetchLogin, fetchLogout, fetchSignUp } from "../pages/apis/signup";
-import { provider } from "../pages/firebase/init";
+import { fetchLogin, fetchLogout, fetchSignUp } from "../apis/auth";
+import { provider } from "../libs/firebase/init";
 
 const auth: Auth = getAuth() as Auth;
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { login, logout, sessionCheck, signup } from "../urls";
+import { login, logout, sessionCheck, signup } from "../config/urls";
 
 export const fetchSignUp = async (accessToken: string) => {
   return await axios
