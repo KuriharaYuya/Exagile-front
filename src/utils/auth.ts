@@ -1,5 +1,5 @@
 import { Auth, getAuth, signInWithPopup } from "firebase/auth";
-import { fetchSignUp } from "../pages/apis/signup";
+import { fetchLogin, fetchSignUp } from "../pages/apis/signup";
 import { provider } from "../pages/firebase/init";
 
 const auth: Auth = getAuth() as Auth;
@@ -8,7 +8,7 @@ const getAccessToken = async () => {
   const idToken = await auth.currentUser!.getIdToken();
   return idToken;
 };
-const signUpWithGoogle = async () => {
+export const signUpWithGoogle = async () => {
   // Googleでログイン
   await signInWithPopup(auth, provider);
   return getAccessToken().then(async (token) => {
@@ -18,4 +18,22 @@ const signUpWithGoogle = async () => {
   });
 };
 
-export { signUpWithGoogle };
+export const signInWithGoogle = async () => {
+  await signInWithPopup(auth, provider);
+  return getAccessToken().then(async (token) => {
+    return await fetchLogin(token);
+  });
+};
+
+export const isLoggedIn = () => {
+  return getCookie("isLoggedIn") === "true";
+};
+const getCookie = (name: string): string | undefined => {
+  const value: string = "; " + document.cookie;
+  const parts: string[] = value.split("; " + name + "=");
+  if (parts.length == 2) {
+    const result: string | undefined = parts.pop()?.split(";").shift();
+    return result;
+  }
+  return undefined;
+};

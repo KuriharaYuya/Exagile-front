@@ -1,8 +1,13 @@
-import { Inter } from "@next/font/google";
-import Auth from "../components/auth";
-
-const inter = Inter({ subsets: ["latin"] });
+import Router from "next/router";
+import { useEffect } from "react";
+import { isLoggedIn } from "../utils/auth";
 
 export default function Home() {
-  return <Auth></Auth>;
+  useEffect(() => {
+    const loggedIn = isLoggedIn();
+    if (!loggedIn) {
+      Router.push("/signup");
+    }
+  }, []);
+  return <h1>ホームです！</h1>;
 }
