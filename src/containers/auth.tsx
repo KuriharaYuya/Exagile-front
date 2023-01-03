@@ -1,6 +1,6 @@
 import Router from "next/router";
 import React, { useEffect, useState } from "react";
-import { fetchSessionCheck } from "../pages/apis/signup";
+import { fetchSessionCheck } from "../apis/auth";
 import { isLoggedIn, signInWithGoogle, signUpWithGoogle } from "../utils/auth";
 
 const Auth = () => {
