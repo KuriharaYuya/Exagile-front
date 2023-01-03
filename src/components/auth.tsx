@@ -4,7 +4,6 @@ import { fetchSessionCheck } from "../pages/apis/signup";
 import { isLoggedIn, signInWithGoogle, signUpWithGoogle } from "../utils/auth";
 
 const Auth = () => {
-  const [success, setSuccess] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -12,8 +11,8 @@ const Auth = () => {
   }, []);
 
   const handleRegister = async () => {
-    const success = await signUpWithGoogle().then((res) => res.success);
-    setSuccess(success);
+    await signUpWithGoogle().then((res) => res.success);
+    if (isLoggedIn()) Router.push("/");
   };
 
   const handleLogin = async () => {
@@ -29,7 +28,6 @@ const Auth = () => {
     <>
       <div>ユーザー登録</div>
       <button onClick={handleRegister}>Googleでユーザー登録</button>
-      {success === true && <div>登録成功!</div>}
       <br />
       {!loggedIn && (
         <>

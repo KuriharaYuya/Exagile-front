@@ -14,6 +14,9 @@ export const signUpWithGoogle = async () => {
   return getAccessToken().then(async (token) => {
     const accessToken: string = token;
     const res = await fetchSignUp(accessToken).then((res) => res);
+    await getAccessToken().then(async (token) => {
+      await fetchLogin(token);
+    });
     return { success: true, data: res.data };
   });
 };
