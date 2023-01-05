@@ -4,20 +4,20 @@ import { provider } from "../libs/firebase/init";
 
 const auth: Auth = getAuth() as Auth;
 
-const getAccessToken = async () => {
+export const getAccessToken = async () => {
   const idToken = await auth.currentUser!.getIdToken();
   return idToken;
 };
 export const signUpWithGoogle = async () => {
-  // Googleでログイン
+  // サインアップ
   await signInWithPopup(auth, provider);
+  // トークンを取得してログイン
   return getAccessToken().then(async (token) => {
     const accessToken: string = token;
-    const res = await fetchSignUp(accessToken).then((res) => res);
-    await getAccessToken().then(async (token) => {
-      await fetchLogin(token);
-    });
-    return { success: true, data: res.data };
+    const signUppedUser = await fetchSignUp(accessToken).then(
+      (res) => res.data
+    );
+    return signUppedUser;
   });
 };
 

@@ -1,17 +1,19 @@
-import Router from "next/router";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { fetchSessionCheck } from "../apis/auth";
-import { isLoggedIn, signInWithGoogle, signUpWithGoogle } from "../utils/auth";
+import { requestLogin } from "../redux/actions/login";
+import { requestRegister } from "../redux/actions/signup";
+import { isLoggedIn } from "../utils/auth";
 
 const Auth = () => {
-  const handleRegister = async () => {
-    await signUpWithGoogle().then((res) => res.success);
-    if (isLoggedIn()) Router.push("/");
+  const dispatch = useDispatch();
+  const handleRegister = () => {
+    dispatch(requestRegister());
+    // await signUpWithGoogle().then((res) => res.success);
   };
 
-  const handleLogin = async () => {
-    await signInWithGoogle();
-    Router.push("/");
+  const handleLogin = () => {
+    dispatch(requestLogin());
   };
 
   const handleCurrentUser = async () => {
