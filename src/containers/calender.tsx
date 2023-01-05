@@ -1,8 +1,10 @@
 import React from "react";
-import Calendar from "../components/calender";
+import { useSelector } from "react-redux";
 
-const Calender = () => {
-  return <Calendar></Calendar>;
+const Calender: React.FC = () => {
+  const state = useSelector((state) => state);
+  console.log(state);
+  return <h1>yes</h1>;
 };
 
 export default Calender;
