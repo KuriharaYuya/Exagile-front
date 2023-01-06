@@ -2,7 +2,7 @@ import Router from "next/router";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Calender from "../containers/calender";
-import { requestLogout } from "../redux/actions/logout";
+import { requestLogout } from "../redux/actions/auth/logout";
 import { isLoggedIn, logout } from "../utils/auth";
 
 export default function Home() {

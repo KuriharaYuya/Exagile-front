@@ -1,8 +1,8 @@
 import Router from "next/router";
-import { fetchLogin } from "../../apis/auth";
-import { getAccessToken, signUpWithGoogle } from "../../utils/auth";
-import { loginSuccess } from "../reducers/auth";
-import store from "../store";
+import { fetchLogin } from "../../../apis/auth";
+import { getAccessToken, signUpWithGoogle } from "../../../utils/auth";
+import { loginSuccess } from "../../reducers/auth";
+import store from "../../store";
 
 export const requestRegister = () => {
   const setSignup = async () => {
