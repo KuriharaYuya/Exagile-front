@@ -1,7 +1,7 @@
 import Router from "next/router";
-import { signInWithGoogle } from "../../utils/auth";
-import { loginSuccess } from "../reducers/auth";
-import store from "../store";
+import { signInWithGoogle } from "../../../utils/auth";
+import { loginSuccess } from "../../reducers/auth";
+import store from "../../store";
 
 export const requestLogin = () => {
   interface user {

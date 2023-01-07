@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { fetchSessionCheck } from "../apis/auth";
-import { requestLogin } from "../redux/actions/login";
-import { requestRegister } from "../redux/actions/signup";
+import { requestLogin } from "../redux/actions/auth/login";
+import { requestRegister } from "../redux/actions/auth/signup";
 import { isLoggedIn } from "../utils/auth";
 
 const Auth = () => {
