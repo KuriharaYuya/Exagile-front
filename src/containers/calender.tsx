@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import Router from "next/router";
@@ -12,7 +12,6 @@ const Calender: React.FC = () => {
   const handleRenderView = async (info: DatesSetArg) => {
     const { startStr, endStr } = info;
     await requestAppoints(startStr, endStr);
-    console.log(appoints);
   };
 
   return (

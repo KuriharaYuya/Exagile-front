@@ -1,17 +1,21 @@
 import Router from "next/router";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { fetchSessionCheck } from "../apis/auth";
 import Calender from "../containers/calender";
 import { requestLogout } from "../redux/actions/auth/logout";
-import { isLoggedIn, logout } from "../utils/auth";
+import { isLoggedIn } from "../utils/auth";
 
 export default function Home() {
   const dispatch = useDispatch();
   useEffect(() => {
-    const loggedIn = isLoggedIn();
-    if (!loggedIn) {
-      Router.push("/auth");
-    }
+    (async () => {
+      await fetchSessionCheck().then((data) => data.currentUser);
+      const loggedIn = isLoggedIn();
+      if (!loggedIn) {
+        Router.push("/auth");
+      }
+    })();
   }, []);
   const handleLogout = () => {
     dispatch(requestLogout());
