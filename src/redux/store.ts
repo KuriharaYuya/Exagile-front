@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./reducers/auth";
 import thunk from "redux-thunk";
-
+import appointReducer from "./reducers/appoints";
 const store = configureStore({
-  reducer: authReducer,
+  reducer: { authReducer, appointReducer },
   middleware: [thunk],
 });
 
