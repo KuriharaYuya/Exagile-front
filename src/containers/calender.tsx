@@ -3,7 +3,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import Router from "next/router";
 import { DatesSetArg } from "@fullcalendar/core";
-import { requestAppoints } from "../redux/actions/appoints/appoints";
+import { requestAppoints } from "../redux/actions/appoints/appointsIndex";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 const Calender: React.FC = () => {
