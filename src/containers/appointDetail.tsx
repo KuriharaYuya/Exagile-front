@@ -1,6 +1,10 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { formatTime } from "../utils/dateTime";
+import {
+  formatDateTimeLocal,
+  formatTime,
+  parseDateTimeLocal,
+} from "../utils/dateTime";
 import { formatDate } from "@fullcalendar/core";
 import React, { useEffect, useState } from "react";
 import { requestAppointDetail } from "../redux/actions/appoints/getDetail";
@@ -34,11 +38,21 @@ const AppointDetail = ({ appointId }: { appointId: string }) => {
   // 入力値が変更されるたびに、updateAppointアクションを発行する
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (appoint === undefined) return;
-    const updatedAppoint = {
-      ...appoint,
-      [event.target.name]: event.target.value,
-    };
-    updateStoreAppoint(updatedAppoint);
+    if (["start", "end"].includes(event.target.name)) {
+      const updatedDate = parseDateTimeLocal(event.target.value);
+      const updatedAppoint = {
+        ...appoint,
+        [event.target.name]: updatedDate,
+      };
+      updateStoreAppoint(updatedAppoint);
+    } else {
+      const updatedAppoint = {
+        ...appoint,
+        [event.target.name]: event.target.value,
+      };
+      updateStoreAppoint(updatedAppoint);
+    }
+
     setOnChanging(true);
     setIsDirty(true);
   };
@@ -107,15 +121,15 @@ const AppointDetail = ({ appointId }: { appointId: string }) => {
           onChange={handleInputChange}
         />
         <input
-          type="text"
+          type="datetime-local"
           name="start"
-          value={appoint.start}
+          value={formatDateTimeLocal(appoint.start)}
           onChange={handleInputChange}
         />
         <input
-          type="text"
+          type="datetime-local"
           name="end"
-          value={appoint.end}
+          value={formatDateTimeLocal(appoint.end)}
           onChange={handleInputChange}
         />
       </div>
