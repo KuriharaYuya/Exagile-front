@@ -1,6 +1,7 @@
 import { GetServerSideProps } from "next";
 import Router from "next/router";
 import React from "react";
+import { fetchAppointDelete } from "../../apis/appoint";
 import AppointDetailContainer from "../../containers/appointDetail";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -18,10 +19,16 @@ const AppointDetail = ({ appointId }: { appointId: string }) => {
     Router.push("/");
   };
 
+  const onDeleteHandler = () => {
+    fetchAppointDelete(appointId);
+    Router.push("/");
+  };
+
   return (
     <>
       <AppointDetailContainer appointId={appointId} />
       <button onClick={onClickHandler}>カレンダーに戻る</button>
+      <button onClick={onDeleteHandler}>削除します</button>
     </>
   );
 };

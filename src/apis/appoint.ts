@@ -1,10 +1,10 @@
 import axios from "axios";
-import { appointDetail, calenderIndex } from "../config/urls";
+import { appointDetail, appoints } from "../config/urls";
 import { Appoint } from "../utils/type";
 
 export const fetchAppoints = async (startStr: string, endStr: string) => {
   return await axios
-    .get(calenderIndex, {
+    .get(appoints, {
       params: {
         start: startStr,
         end: endStr,
@@ -24,4 +24,12 @@ export const updateAppointDetail = async (id: string, appoint: Appoint) => {
       appoints: appoint,
     })
     .then((res) => res);
+};
+
+export const fetchNewAppoint = async (appoint: Appoint) => {
+  return await axios.post(appoints, { appoints: appoint }).then((res) => res);
+};
+
+export const fetchAppointDelete = async (appointId: string) => {
+  return await axios.delete(appointDetail(appointId)).then((res) => res);
 };

@@ -13,6 +13,7 @@ import {
   updateStoreAppoint,
 } from "../redux/actions/appoints/updateDetail";
 import Router from "next/router";
+import { TextField } from "@mui/material";
 
 const AppointDetail = ({ appointId }: { appointId: string }) => {
   const [isDirty, setIsDirty] = useState(false);
@@ -100,14 +101,6 @@ const AppointDetail = ({ appointId }: { appointId: string }) => {
           <span>~</span>
           {formatTime(appoint.end)}
         </p>
-        <div>
-          <h4>時間</h4>
-          <p>
-            {formatTime(appoint.start)}
-            <span>~</span>
-            {formatTime(appoint.end)}
-          </p>
-        </div>
         <input
           type="text"
           name="title"
@@ -120,13 +113,13 @@ const AppointDetail = ({ appointId }: { appointId: string }) => {
           value={appoint.desc}
           onChange={handleInputChange}
         />
-        <input
+        <TextField
           type="datetime-local"
           name="start"
           value={formatDateTimeLocal(appoint.start)}
           onChange={handleInputChange}
         />
-        <input
+        <TextField
           type="datetime-local"
           name="end"
           value={formatDateTimeLocal(appoint.end)}

@@ -21,7 +21,6 @@ const appointsSlice = createSlice({
       return state;
     },
     updateEditingAppoint: (state, action) => {
-      console.log(action.payload);
       state.editing = action.payload;
       return state;
     },
