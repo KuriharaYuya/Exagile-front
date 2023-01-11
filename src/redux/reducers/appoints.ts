@@ -5,6 +5,7 @@ const initialAppointState = {
   id: "",
   title: "",
   desc: "",
+  content: "",
   start: "",
   end: "",
 };

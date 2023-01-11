@@ -27,6 +27,7 @@ export const updateAppointDetail = async (id: string, appoint: Appoint) => {
 };
 
 export const fetchNewAppoint = async (appoint: Appoint) => {
+  appoint.content = "### Good\n### Improve";
   return await axios.post(appoints, { appoints: appoint }).then((res) => res);
 };
 

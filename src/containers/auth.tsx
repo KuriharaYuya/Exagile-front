@@ -17,8 +17,7 @@ const Auth = () => {
   };
 
   const handleCurrentUser = async () => {
-    console.log(isLoggedIn(), "is logged in?");
-    console.log(await fetchSessionCheck().then((data) => data.currentUser));
+    await fetchSessionCheck().then((data) => data.currentUser);
   };
   return (
     <>

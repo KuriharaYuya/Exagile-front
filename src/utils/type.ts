@@ -3,6 +3,7 @@ export interface Appoint {
   user_id: string;
   title: string;
   desc: string;
+  content: string;
   start: string;
   end: string;
   created_at: string;
