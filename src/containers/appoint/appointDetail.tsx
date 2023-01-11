@@ -1,21 +1,26 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import { RootState } from "../../redux/store";
 import {
   formatDateTimeLocal,
   formatTime,
   parseDateTimeLocal,
-} from "../utils/dateTime";
+} from "../../utils/dateTime";
 import { formatDate } from "@fullcalendar/core";
 import React, { useEffect, useState } from "react";
-import { requestAppointDetail } from "../redux/actions/appoints/getDetail";
+import { requestAppointDetail } from "../../redux/actions/appoints/getDetail";
 import {
   requestUpdateAppoint,
   updateStoreAppoint,
-} from "../redux/actions/appoints/updateDetail";
+} from "../../redux/actions/appoints/updateDetail";
 import Router from "next/router";
 import { TextField } from "@mui/material";
 
+import "react-markdown-editor-lite/lib/index.css";
+import MarkdownIt from "markdown-it";
+import MdEditor from "react-markdown-editor-lite";
+
 const AppointDetail = ({ appointId }: { appointId: string }) => {
+  const mdParser = new MarkdownIt();
   const [isDirty, setIsDirty] = useState(false);
   const appoint = useSelector(
     (state: RootState) => state.appointReducer.editing
@@ -57,6 +62,15 @@ const AppointDetail = ({ appointId }: { appointId: string }) => {
     setOnChanging(true);
     setIsDirty(true);
   };
+  const handleEditorChange = ({ text }: { text: string }) => {
+    const updatedAppoint = {
+      ...appoint,
+      content: text,
+    };
+    updateStoreAppoint(updatedAppoint);
+    setOnChanging(true);
+    setIsDirty(true);
+  };
 
   // 5秒後にupdateAppointアクションを発行する
   useEffect(() => {
@@ -85,12 +99,8 @@ const AppointDetail = ({ appointId }: { appointId: string }) => {
     };
   }, [isDirty]);
 
-  const testPush = () => {
-    Router.push("/");
-  };
   return (
-    <div>
-      <button onClick={testPush}>テスト画面遷移</button>
+    <>
       <h1>タイトル: {appoint.title}</h1>
       <h4>説明: {appoint.desc}</h4>
       <h4>日付: {formatDate(appoint.start)}</h4>
@@ -126,7 +136,12 @@ const AppointDetail = ({ appointId }: { appointId: string }) => {
           onChange={handleInputChange}
         />
       </div>
-    </div>
+      <MdEditor
+        onChange={handleEditorChange}
+        value={appoint.content}
+        renderHTML={(text) => mdParser.render(text)}
+      />
+    </>
   );
 };
 export default AppointDetail;
