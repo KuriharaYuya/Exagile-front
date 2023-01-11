@@ -11,3 +11,11 @@ export interface Appoint {
 }
 
 export type Appoints = Appoint[];
+
+export interface Character {
+  id: number;
+  name: string;
+  profile: string;
+}
+
+export type Characters = Character[];

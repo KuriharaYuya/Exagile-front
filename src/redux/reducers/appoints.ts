@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Appoint, Appoints } from "../../utils/type";
+import { Appoint, Appoints, Characters } from "../../utils/type";
 
 const initialAppointState = {
   id: "",
@@ -12,9 +12,14 @@ const initialAppointState = {
 
 const appointsSlice = createSlice({
   name: "appoints",
-  initialState: { appoints: [{}], editing: initialAppointState } as {
+  initialState: {
+    appoints: [{}],
+    editing: initialAppointState,
+    characters: [{}],
+  } as {
     appoints: Appoints;
     editing: Appoint;
+    characters: Characters;
   },
   reducers: {
     updateAppoints: (state, action) => {
@@ -25,9 +30,14 @@ const appointsSlice = createSlice({
       state.editing = action.payload;
       return state;
     },
+    updateCharacters: (state, action) => {
+      state.characters = action.payload;
+      return state;
+    },
   },
 });
 
-export const { updateAppoints, updateEditingAppoint } = appointsSlice.actions;
+export const { updateAppoints, updateEditingAppoint, updateCharacters } =
+  appointsSlice.actions;
 
 export default appointsSlice.reducer;

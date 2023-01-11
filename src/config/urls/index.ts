@@ -8,3 +8,4 @@ export const appoints = `${DEFAULT_API_LOCALHOST}/appoints`;
 export const appointDetail = (id: string) => {
   return `${DEFAULT_API_LOCALHOST}/appoints/${id}`;
 };
+export const characterSearch = `${DEFAULT_API_LOCALHOST}/characters`;
