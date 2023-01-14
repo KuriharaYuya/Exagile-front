@@ -16,10 +16,12 @@ const appointsSlice = createSlice({
     appoints: [{}],
     editing: initialAppointState,
     characters: [{}],
+    characterTags: [{}],
   } as {
     appoints: Appoints;
     editing: Appoint;
     characters: Characters;
+    characterTags: Characters;
   },
   reducers: {
     updateAppoints: (state, action) => {
@@ -34,10 +36,19 @@ const appointsSlice = createSlice({
       state.characters = action.payload;
       return state;
     },
+    updateCharacterTags: (state, action) => {
+      state.characterTags = action.payload;
+      console.log(action.payload);
+      return state;
+    },
   },
 });
 
-export const { updateAppoints, updateEditingAppoint, updateCharacters } =
-  appointsSlice.actions;
+export const {
+  updateAppoints,
+  updateEditingAppoint,
+  updateCharacters,
+  updateCharacterTags,
+} = appointsSlice.actions;
 
 export default appointsSlice.reducer;

@@ -13,7 +13,7 @@ export interface Appoint {
 export type Appoints = Appoint[];
 
 export interface Character {
-  id: number;
+  id: string;
   name: string;
   profile: string;
 }

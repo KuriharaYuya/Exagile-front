@@ -5,6 +5,13 @@ import { styled } from "@mui/system";
 import { requestCharacterSearch } from "../../redux/actions/appoints/characterSearch";
 import store from "../../redux/store";
 import { Character } from "../../utils/type";
+import { useRouter } from "next/router";
+import { fetchAppointCharacters } from "../../apis/appointCharacters";
+import {
+  requestAddTag,
+  requestCharacterTags,
+} from "../../redux/actions/appointCharacters/appointCharacters";
+
 const ScrollContainer = styled(Box)`
   height: 25px;
   overflow-y: scroll;
@@ -14,6 +21,10 @@ const CharacterForm = () => {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [displayCharacters, setDisplayCharacters] = useState<Character[]>([]);
   const [isFirsRender, setIsFirsRender] = useState(true);
+  const router = useRouter();
+  const { id } = router.query as { id: string };
+  const state = store.getState().appointReducer;
+  const { characterTags } = state;
 
   useEffect(() => {
     if (searchKeyword.length >= 1) {
@@ -54,15 +65,30 @@ const CharacterForm = () => {
   };
   const handleUnFocus = () => {
     if (searchKeyword.length === 0) {
-      setIsFirsRender(true);
+      setTimeout(() => {
+        setIsFirsRender(true);
+        // TODO もし追加しているなら、trueに変更しない。storeから状態をもらってくる
+      }, 500);
     }
   };
 
+  const addTagHandler = async (character: Character) => {
+    const appointId = id;
+    await requestAddTag(character.id, appointId);
+  };
+
+  useEffect(() => {
+    requestCharacterTags(id);
+  }, []);
+
   return (
     <div>
-      <button onClick={() => requestCharacterSearch(searchKeyword)}>
-        検索
-      </button>
+      <div>
+        <p>追加されたタグ達</p>
+        {characterTags.map((tag) => (
+          <div key={tag.id}>{tag.name}</div>
+        ))}
+      </div>
       <TextField
         label="search"
         onChange={handleInputChange}
@@ -72,7 +98,10 @@ const CharacterForm = () => {
       {!isFirsRender && (
         <ScrollContainer>
           {displayCharacters.map((character) => (
-            <div key={character.id}>{character.name}</div>
+            <div key={character.id}>
+              {character.name}
+              <button onClick={() => addTagHandler(character)}>追加</button>
+            </div>
           ))}
         </ScrollContainer>
       )}
