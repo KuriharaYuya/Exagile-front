@@ -15,6 +15,7 @@ export type Appoints = Appoint[];
 export interface Character {
   id: string;
   name: string;
+  user_id: string;
   profile: string;
 }
 

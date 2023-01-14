@@ -18,3 +18,14 @@ export const fetchCharactersBoundWithAppoint = async (appointId: string) => {
     .get(charactersBoundWithAppoint, { params: { appoint_id: appointId } })
     .then((res) => res);
 };
+
+export const fetchDeleteRelation = async (
+  appointId: string,
+  characterId: string
+) => {
+  return await axios
+    .delete(appointCharacters, {
+      params: { appoint_id: appointId, character_id: characterId },
+    })
+    .then((res) => res);
+};

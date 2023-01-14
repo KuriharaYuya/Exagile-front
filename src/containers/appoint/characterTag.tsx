@@ -5,12 +5,15 @@ import { styled } from "@mui/system";
 import { requestCharacterSearch } from "../../redux/actions/appoints/characterSearch";
 import store from "../../redux/store";
 import { Character } from "../../utils/type";
-import { useRouter } from "next/router";
-import { fetchAppointCharacters } from "../../apis/appointCharacters";
+import Router, { useRouter } from "next/router";
 import {
+  deleteCharacterRelation,
   requestAddTag,
   requestCharacterTags,
 } from "../../redux/actions/appointCharacters/appointCharacters";
+import { Modal } from "@mui/material";
+import { requestModalCharacter } from "../../redux/actions/character/character";
+import { request } from "https";
 
 const ScrollContainer = styled(Box)`
   height: 25px;
@@ -25,6 +28,8 @@ const CharacterForm = () => {
   const { id } = router.query as { id: string };
   const state = store.getState().appointReducer;
   const { characterTags } = state;
+  const { modalCharacter } = state;
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (searchKeyword.length >= 1) {
@@ -80,14 +85,38 @@ const CharacterForm = () => {
   useEffect(() => {
     requestCharacterTags(id);
   }, []);
+  const handleModalOpen = async (characterTag: Character) => {
+    await requestModalCharacter(characterTag.id);
+    setIsOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsOpen(false);
+  };
+
+  const goCharacterDetail = () => {
+    const character = store.getState().appointReducer.modalCharacter;
+    Router.push(`/characters/${character.id}`);
+  };
+
+  const deleteRelation = async () => {
+    const characterId = modalCharacter.id;
+    const appointId = id;
+    await deleteCharacterRelation(appointId, characterId);
+    Router.reload();
+  };
 
   return (
     <div>
       <div>
         <p>追加されたタグ達</p>
-        {characterTags.map((tag) => (
-          <div key={tag.id}>{tag.name}</div>
-        ))}
+        {characterTags?.map((tag) => {
+          return (
+            <p key={tag.name} onClick={() => handleModalOpen(tag)}>
+              {tag.name}
+            </p>
+          );
+        })}
       </div>
       <TextField
         label="search"
@@ -105,6 +134,24 @@ const CharacterForm = () => {
           ))}
         </ScrollContainer>
       )}
+      <Modal
+        open={isOpen}
+        onClose={handleModalClose}
+        style={{
+          width: "500px",
+          height: "400px",
+          backgroundColor: "white",
+          padding: "45px",
+        }}
+      >
+        <div>
+          モーダル
+          <button onClick={goCharacterDetail}>
+            {modalCharacter.name}個別ページへ
+          </button>
+          <button onClick={deleteRelation}>紐づきを解消する</button>
+        </div>
+      </Modal>
     </div>
   );
 };
