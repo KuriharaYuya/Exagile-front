@@ -1,6 +1,9 @@
-import { fetchCharacterDetails } from "../../../apis/characters";
+import {
+  fetchCharacterDetails,
+  fetchShowCharacter,
+} from "../../../apis/characters";
 import { updateModalCharacter } from "../../reducers/appoints";
-import { updateCharacterDetails, updateTopics } from "../../reducers/character";
+import { updateCharacterDetails } from "../../reducers/character";
 import store from "../../store";
 
 export const requestCharacterDetail = async (
@@ -22,4 +25,9 @@ export const requestModalCharacter = async (
     (res) => res
   );
   store.dispatch(updateModalCharacter(data));
+};
+
+export const requestShowCharacter = async (characterId: string) => {
+  const { character } = (await fetchShowCharacter(characterId)).data;
+  store.dispatch(updateCharacterDetails(character));
 };

@@ -1,5 +1,9 @@
 import axios from "axios";
-import { characterDetail, characterSearch } from "../config/urls";
+import {
+  characterDetail,
+  characterSearch,
+  characterShow,
+} from "../config/urls";
 
 export const fetchCharacterSearch = async (tgtWord: string) => {
   return await axios
@@ -16,4 +20,8 @@ export const fetchCharacterDetails = async (
       params: { appoint_id: appointId, character_id: characterId },
     })
     .then((res) => res);
+};
+
+export const fetchShowCharacter = async (characterId: string) => {
+  return await axios.get(characterShow(characterId)).then((res) => res);
 };
