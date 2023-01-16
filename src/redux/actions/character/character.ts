@@ -1,8 +1,12 @@
 import {
   fetchCharacterDetails,
+  fetchCreateCharacter,
   fetchShowCharacter,
 } from "../../../apis/characters";
-import { updateModalCharacter } from "../../reducers/appoints";
+import {
+  updateModalCharacter,
+  updateCharacterTags,
+} from "../../reducers/appoints";
 import { updateCharacterDetails } from "../../reducers/character";
 import store from "../../store";
 
@@ -30,4 +34,15 @@ export const requestModalCharacter = async (
 export const requestShowCharacter = async (characterId: string) => {
   const { character } = (await fetchShowCharacter(characterId)).data;
   store.dispatch(updateCharacterDetails(character));
+};
+export const requestCreateCharacter = async (
+  keyword: string,
+  appointId: string
+) => {
+  const { character } = await fetchCreateCharacter(keyword, appointId).then(
+    (res) => res.data
+  );
+  const characterTags = store.getState().appointReducer.characterTags;
+  const updatedCharacters = [...characterTags, character];
+  store.dispatch(updateCharacterTags(updatedCharacters));
 };

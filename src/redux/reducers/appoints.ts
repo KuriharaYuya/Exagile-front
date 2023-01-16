@@ -36,6 +36,7 @@ const appointsSlice = createSlice({
     },
     updateCharacterTags: (state, action) => {
       state.characterTags = action.payload;
+      console.log(state.characterTags);
       return state;
     },
     updateModalCharacter: (state, action) => {
