@@ -18,6 +18,7 @@ import { TextField } from "@mui/material";
 import "react-markdown-editor-lite/lib/index.css";
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
+import CharacterForm from "./characterTag";
 
 const AppointDetail = ({ appointId }: { appointId: string }) => {
   const mdParser = new MarkdownIt();
@@ -141,6 +142,7 @@ const AppointDetail = ({ appointId }: { appointId: string }) => {
         value={appoint.content}
         renderHTML={(text) => mdParser.render(text)}
       />
+      <CharacterForm />
     </>
   );
 };

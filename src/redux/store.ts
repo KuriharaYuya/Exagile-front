@@ -2,8 +2,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./reducers/auth";
 import thunk from "redux-thunk";
 import appointReducer from "./reducers/appoints";
+import characterReducer from "./reducers/character";
 const store = configureStore({
-  reducer: { authReducer, appointReducer },
+  reducer: { authReducer, appointReducer, characterReducer },
   middleware: [thunk],
 });
 

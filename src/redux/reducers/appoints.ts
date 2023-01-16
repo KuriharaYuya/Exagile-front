@@ -1,20 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Appoint, Appoints } from "../../utils/type";
-
-const initialAppointState = {
-  id: "",
-  title: "",
-  desc: "",
-  content: "",
-  start: "",
-  end: "",
-};
+import {
+  initialAppointState,
+  initialCharacterState,
+  initialTagModalState,
+} from "../../utils/initialStates";
+import { Appoint, Appoints, Characters, TagModalState } from "../../utils/type";
 
 const appointsSlice = createSlice({
   name: "appoints",
-  initialState: { appoints: [{}], editing: initialAppointState } as {
+  initialState: {
+    appoints: [{}],
+    editing: initialAppointState,
+    characters: [initialCharacterState],
+    characterTags: [initialCharacterState],
+    modalCharacter: initialTagModalState,
+  } as {
     appoints: Appoints;
     editing: Appoint;
+    characters: Characters;
+    characterTags: Characters;
+    modalCharacter: TagModalState;
   },
   reducers: {
     updateAppoints: (state, action) => {
@@ -25,9 +30,27 @@ const appointsSlice = createSlice({
       state.editing = action.payload;
       return state;
     },
+    updateCharacters: (state, action) => {
+      state.characters = action.payload;
+      return state;
+    },
+    updateCharacterTags: (state, action) => {
+      state.characterTags = action.payload;
+      return state;
+    },
+    updateModalCharacter: (state, action) => {
+      state.modalCharacter = action.payload;
+      return state;
+    },
   },
 });
 
-export const { updateAppoints, updateEditingAppoint } = appointsSlice.actions;
+export const {
+  updateAppoints,
+  updateEditingAppoint,
+  updateCharacters,
+  updateCharacterTags,
+  updateModalCharacter,
+} = appointsSlice.actions;
 
 export default appointsSlice.reducer;
