@@ -17,3 +17,6 @@ export const topic = `${DEFAULT_API_LOCALHOST}/topics`;
 export const topicDetail = (topicId: string) => {
   return `${DEFAULT_API_LOCALHOST}/topics/${topicId}`;
 };
+export const characterShow = (characterId: string) => {
+  return `${characterSearch}/${characterId}`;
+};

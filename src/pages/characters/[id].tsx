@@ -2,7 +2,10 @@ import { GetServerSideProps } from "next";
 import Router from "next/router";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { requestCharacterDetail } from "../../redux/actions/character/character";
+import {
+  requestCharacterDetail,
+  requestShowCharacter,
+} from "../../redux/actions/character/character";
 import store, { RootState } from "../../redux/store";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -20,7 +23,7 @@ const CharacterDetail = ({ characterId }: { characterId: string }) => {
     (state: RootState) => state.characterReducer.character
   );
   useEffect(() => {
-    requestCharacterDetail(characterId);
+    requestShowCharacter(characterId);
   }, []);
   return (
     <>
