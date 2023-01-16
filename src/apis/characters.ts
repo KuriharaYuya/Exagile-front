@@ -7,6 +7,13 @@ export const fetchCharacterSearch = async (tgtWord: string) => {
     .then((res) => res);
 };
 
-export const fetchCharacterDetails = async (characterId: string) => {
-  return await axios.get(characterDetail(characterId)).then((res) => res);
+export const fetchCharacterDetails = async (
+  appointId: string,
+  characterId: string
+) => {
+  return await axios
+    .get(characterDetail, {
+      params: { appoint_id: appointId, character_id: characterId },
+    })
+    .then((res) => res);
 };

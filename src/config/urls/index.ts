@@ -12,6 +12,8 @@ export const characterSearch = `${DEFAULT_API_LOCALHOST}/characters`;
 export const appointCharacters = `${DEFAULT_API_LOCALHOST}/appoint_characters`;
 export const charactersBoundWithAppoint = `${DEFAULT_API_LOCALHOST}/appoint_characters/characters`;
 export const appointBoundWithCharacter = `${DEFAULT_API_LOCALHOST}/appoint_characters/appoints`;
-export const characterDetail = (characterId: string) => {
-  return `${DEFAULT_API_LOCALHOST}/characters/${characterId}`;
+export const characterDetail = `${DEFAULT_API_LOCALHOST}/characters/details`;
+export const topic = `${DEFAULT_API_LOCALHOST}/topics`;
+export const topicDetail = (topicId: string) => {
+  return `${DEFAULT_API_LOCALHOST}/topics/${topicId}`;
 };

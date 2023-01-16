@@ -12,3 +12,15 @@ export const initialCharacterState = {
   user_id: "",
   profile: "",
 };
+
+export const initialTopicState = {
+  id: "",
+  title: "",
+  content: "",
+  updated_at: "",
+};
+
+export const initialTagModalState = {
+  character: initialCharacterState,
+  topics: [initialTopicState],
+};

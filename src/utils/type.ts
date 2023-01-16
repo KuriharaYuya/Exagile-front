@@ -20,3 +20,17 @@ export interface Character {
 }
 
 export type Characters = Character[];
+
+export type Topic = {
+  id: string;
+  title: string;
+  content: string;
+  updated_at: string;
+};
+
+export type Topics = Topic[];
+
+export type TagModalState = {
+  character: Character;
+  topics: Topics;
+};

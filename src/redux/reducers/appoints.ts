@@ -2,8 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   initialAppointState,
   initialCharacterState,
+  initialTagModalState,
 } from "../../utils/initialStates";
-import { Appoint, Appoints, Character, Characters } from "../../utils/type";
+import { Appoint, Appoints, Characters, TagModalState } from "../../utils/type";
 
 const appointsSlice = createSlice({
   name: "appoints",
@@ -12,13 +13,13 @@ const appointsSlice = createSlice({
     editing: initialAppointState,
     characters: [initialCharacterState],
     characterTags: [initialCharacterState],
-    modalCharacter: initialCharacterState,
+    modalCharacter: initialTagModalState,
   } as {
     appoints: Appoints;
     editing: Appoint;
     characters: Characters;
     characterTags: Characters;
-    modalCharacter: Character;
+    modalCharacter: TagModalState;
   },
   reducers: {
     updateAppoints: (state, action) => {
