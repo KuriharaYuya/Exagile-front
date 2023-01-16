@@ -3,6 +3,7 @@ import {
   characterDetail,
   characterSearch,
   characterShow,
+  topic,
 } from "../config/urls";
 
 export const fetchCharacterSearch = async (tgtWord: string) => {
@@ -24,4 +25,10 @@ export const fetchCharacterDetails = async (
 
 export const fetchShowCharacter = async (characterId: string) => {
   return await axios.get(characterShow(characterId)).then((res) => res);
+};
+
+export const fetchCreateCharacter = (keyword: string, appointId: string) => {
+  return axios.post(characterSearch, {
+    character: { appoint_id: appointId, keyword },
+  });
 };

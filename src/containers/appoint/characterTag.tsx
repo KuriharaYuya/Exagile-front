@@ -12,7 +12,10 @@ import {
   requestCharacterTags,
 } from "../../redux/actions/appointCharacters/appointCharacters";
 import { Modal } from "@mui/material";
-import { requestModalCharacter } from "../../redux/actions/character/character";
+import {
+  requestCreateCharacter,
+  requestModalCharacter,
+} from "../../redux/actions/character/character";
 import {
   Table,
   TableHead,
@@ -164,7 +167,6 @@ const CharacterForm = () => {
     );
   };
   const handleInputBlur = async () => {
-    console.log(editingTopic, "blur");
     await fetchUpdateTopic(editingTopic);
     setEditingTopic(initialTopicState);
   };
@@ -178,6 +180,9 @@ const CharacterForm = () => {
       updateModalCharacter({ ...modalCharacter, topics: updatedTopics })
     );
     await fetchDeleteTopic(topicId);
+  };
+  const createTagHandler = async (Keyword: string) => {
+    await requestCreateCharacter(Keyword, id);
   };
 
   return (
@@ -198,15 +203,24 @@ const CharacterForm = () => {
         onFocus={handleFocus}
         onBlur={handleUnFocus}
       />
-      {!isFirsRender && (
+      {!isFirsRender && displayCharacters.length > 0 ? (
         <ScrollContainer>
           {displayCharacters.map((character) => (
             <div key={character.id}>
               {character.name}
-              <button onClick={() => addTagHandler(character)}>追加</button>
+              <button onClick={() => addTagHandler(character)}>は追加</button>
             </div>
           ))}
         </ScrollContainer>
+      ) : (
+        searchKeyword && (
+          <div>
+            {searchKeyword}
+            <button onClick={() => createTagHandler(searchKeyword)}>
+              タグとして追加する
+            </button>
+          </div>
+        )
       )}
       <Modal
         open={isOpen}
