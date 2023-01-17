@@ -24,3 +24,16 @@ export const initialTagModalState = {
   character: initialCharacterState,
   topics: [initialTopicState],
 };
+
+export const initialCharacterTopicState = {
+  id: "",
+  character_id: "",
+  title: "",
+  content: "",
+  created_at: "",
+  updated_at: "",
+  appoint_id: "",
+  appointId: "",
+  appointTitle: "",
+  appointStart: "",
+};

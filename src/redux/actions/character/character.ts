@@ -1,5 +1,6 @@
 import {
   fetchCharacterDetails,
+  fetchCharacterTopics,
   fetchCreateCharacter,
   fetchShowCharacter,
 } from "../../../apis/characters";
@@ -7,7 +8,7 @@ import {
   updateModalCharacter,
   updateCharacterTags,
 } from "../../reducers/appoints";
-import { updateCharacterDetails } from "../../reducers/character";
+import { updateCharacterDetails, updateTopics } from "../../reducers/character";
 import store from "../../store";
 
 export const requestCharacterDetail = async (
@@ -45,4 +46,11 @@ export const requestCreateCharacter = async (
   const characterTags = store.getState().appointReducer.characterTags;
   const updatedCharacters = [...characterTags, character];
   store.dispatch(updateCharacterTags(updatedCharacters));
+};
+
+export const requestCharacterTopics = async (characterId: string) => {
+  const { topics } = await fetchCharacterTopics(characterId).then(
+    (res) => res.data
+  );
+  store.dispatch(updateTopics(topics));
 };

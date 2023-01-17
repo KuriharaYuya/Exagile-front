@@ -34,3 +34,17 @@ export type TagModalState = {
   character: Character;
   topics: Topics;
 };
+
+export type CharacterTopic = {
+  id: string;
+  character_id: string;
+  title: string;
+  content: string;
+  created_at: string;
+  updated_at: string;
+  appoint_id: string;
+  appointId: string;
+  appointTitle: string;
+  appointStart: string;
+};
+export type CharacterTopics = CharacterTopic[];
