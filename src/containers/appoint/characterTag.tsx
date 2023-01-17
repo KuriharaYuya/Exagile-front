@@ -251,46 +251,48 @@ const CharacterForm = () => {
               </TableHead>
               <TableBody>
                 {modalCharacter.topics.map((topic) => (
-                  <TableRow key={topic.id}>
+                  <>
                     <button onClick={() => onDeleteHandle(topic.id)}>
                       削除
                     </button>
-                    <TableCell
-                      onClick={(event) =>
-                        handleEditClick(event, "title", topic)
-                      }
-                    >
-                      {editingTopic.id === topic.id &&
-                      selectedField === "title" ? (
-                        <input
-                          type="text"
-                          value={topic.title}
-                          onChange={(event) => handleChange(event, topic.id)}
-                          onBlur={handleInputBlur}
-                        />
-                      ) : (
-                        <span>{topic.title}</span>
-                      )}
-                    </TableCell>
-                    <TableCell
-                      onClick={(event) =>
-                        handleEditClick(event, "content", topic)
-                      }
-                    >
-                      {editingTopic.id === topic.id &&
-                      selectedField === "content" ? (
-                        <input
-                          type="text"
-                          value={topic.content || ""}
-                          onChange={(event) => handleChange(event, topic.id)}
-                          onBlur={handleInputBlur}
-                        />
-                      ) : (
-                        <span>{topic.content}</span>
-                      )}
-                    </TableCell>
-                    <TableCell>{topic.updated_at}</TableCell>
-                  </TableRow>
+                    <TableRow key={topic.id}>
+                      <TableCell
+                        onClick={(event) =>
+                          handleEditClick(event, "title", topic)
+                        }
+                      >
+                        {editingTopic.id === topic.id &&
+                        selectedField === "title" ? (
+                          <input
+                            type="text"
+                            value={topic.title}
+                            onChange={(event) => handleChange(event, topic.id)}
+                            onBlur={handleInputBlur}
+                          />
+                        ) : (
+                          <span>{topic.title}</span>
+                        )}
+                      </TableCell>
+                      <TableCell
+                        onClick={(event) =>
+                          handleEditClick(event, "content", topic)
+                        }
+                      >
+                        {editingTopic.id === topic.id &&
+                        selectedField === "content" ? (
+                          <input
+                            type="text"
+                            value={topic.content || ""}
+                            onChange={(event) => handleChange(event, topic.id)}
+                            onBlur={handleInputBlur}
+                          />
+                        ) : (
+                          <span>{topic.content}</span>
+                        )}
+                      </TableCell>
+                      <TableCell>{topic.updated_at}</TableCell>
+                    </TableRow>
+                  </>
                 ))}
               </TableBody>
             </Table>
