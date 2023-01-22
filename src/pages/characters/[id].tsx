@@ -36,7 +36,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-const CharacterDetail = ({ characterId }: { characterId: string }) => {
+type CharacterDetailProps = {
+  characterId: string;
+};
+
+// TODO: Propsの定義どうした。
+const CharacterDetail = (props: CharacterDetailProps) => {
+  const { characterId } = props;
   const { character, topics } = useSelector(
     (state: RootState) => state.characterReducer
   );
@@ -49,16 +55,19 @@ const CharacterDetail = ({ characterId }: { characterId: string }) => {
 
   const [characterEditing, setCharacterEditing] = useState("");
 
+  //TODO: handleOpenInputFiledとかにしたほうがいいかな。
   const openInputFiled = (filed: string) => {
-    console.log(characterEditing === filed);
+    console.log(characterEditing === filed); // TODO: console.log消そう。
     setCharacterEditing(filed);
   };
 
   const characterOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const field = characterEditing;
+    // TODO: これはなぜ、useDispatchを使わないのかな？
     store.dispatch(
       updateCharacterDetails({ ...character, [field]: e.target.value })
     );
+    store.dispatch;
   };
 
   const onCharacterBlur = async () => {
@@ -67,15 +76,17 @@ const CharacterDetail = ({ characterId }: { characterId: string }) => {
     setCharacterEditing("");
   };
   const deleteHandle = async () => {
+    // TODO: deleteHandlerかhandleDeleteかな
     characterId = character.id;
     await fetchDeleteCharacter(characterId);
     Router.back();
   };
-
+  //TODO: nullよりもundefinedのほうがいいかも
   const [editingTopic, setEditingTopic] = useState<Topic | null>(null);
   const [editingTopicFiled, setEditingTopicFiled] = useState("");
 
   const selectTopicCell = (topic: Topic, filed: string) => {
+    // TODO: handleSelectTopicとかにしたほうがいいかな。
     setEditingTopic(topic);
     setEditingTopicFiled(filed);
   };
@@ -84,12 +95,13 @@ const CharacterDetail = ({ characterId }: { characterId: string }) => {
     const tgtTopic: Topic = topics.find(
       (topic) => topic.id === editingTopic?.id
     )!;
-    await fetchUpdateTopic(tgtTopic);
+    await fetchUpdateTopic(tgtTopic); //TODO: ここって本当に非同期である必要あるのかな？
     setEditingTopic(null);
     setEditingTopicFiled("");
   };
 
   const changeTopicField = async (
+    //TODO: ここもhandleTopicFieldChangeとかにしたほうがいいかな。
     field: string,
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -191,6 +203,9 @@ const CharacterDetail = ({ characterId }: { characterId: string }) => {
         </Table>
       </div>
       <button onClick={() => Router.push("/")}>ホームに戻る</button>
+      {
+        //TODO: このhandlerも関数化した方が個人的には好きかな。
+      }
       <button onClick={deleteHandle}>delete character</button>
     </>
   );

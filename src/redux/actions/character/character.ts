@@ -22,6 +22,7 @@ export const requestCharacterDetail = async (
   store.dispatch(updateCharacterDetails(character));
 };
 
+// TODO: こいつらもSliceに移行したほうが良い
 export const requestModalCharacter = async (
   appointId: string,
   characterId: string

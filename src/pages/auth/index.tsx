@@ -1,5 +1,5 @@
 import React from "react";
-import Auth from "../../containers/auth";
+import Auth from "../../components/auth";
 
 const index = () => {
   return <Auth></Auth>;

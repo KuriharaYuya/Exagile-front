@@ -29,6 +29,8 @@ const authSlice = createSlice({
   },
 });
 
+// TODO: ここでActionをexportしてると同時に、redux/actions/authでも定義してるから、こっちでexportするのが正しい
+// Reduxの考え方かな。
 export const { loginSuccess, logoutSuccess } = authSlice.actions;
 
 export default authSlice.reducer;
