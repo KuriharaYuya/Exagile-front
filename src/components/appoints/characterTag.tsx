@@ -48,16 +48,28 @@ const CharacterForm = () => {
   const { characterTags } = state;
   const { modalCharacter } = state;
   const [isOpen, setIsOpen] = useState(false);
-
+  const [suggestion, setSuggestion] = useState("");
   useEffect(() => {
     if (searchKeyword.length >= 1) {
       (async () => {
-        await requestCharacterSearch(searchKeyword);
+        await requestCharacterSearch(searchKeyword, id);
         const characters = store.getState().appointReducer.characters;
+        // TODO 既に存在する配列のいずれかに該当するのであれば設定しない
         setDisplayCharacters(characters);
+        const isNotTagExist = () => {
+          return (
+            characterTags.filter((tag) => tag.name === searchKeyword).length > 0
+          );
+        };
+        if (!isNotTagExist()) {
+          setSuggestion(searchKeyword);
+        } else {
+          setSuggestion("");
+        }
       })();
     } else if (searchKeyword.length === 0) {
       // 最初の処理をもう一度呼び出す
+      setSuggestion("");
       if (!isFirsRender) handleFocus();
     }
   }, [searchKeyword]);
@@ -78,9 +90,8 @@ const CharacterForm = () => {
   };
 
   const handleFocus = async () => {
-    console.log("yes");
     if (searchKeyword.length > 0) return;
-    await requestCharacterSearch(searchKeyword);
+    await requestCharacterSearch(searchKeyword, id);
     // 完全に処理を待つことができないため、stateの再定義によって実現
     const state = store.getState().appointReducer;
     const { characters } = state;
@@ -182,7 +193,10 @@ const CharacterForm = () => {
     await fetchDeleteTopic(topicId);
   };
   const createTagHandler = async (Keyword: string) => {
+    // TODO ここで追加したら、キーワードをクリアにする
     await requestCreateCharacter(Keyword, id);
+    setSearchKeyword("");
+    setSuggestion("");
   };
 
   return (
@@ -213,10 +227,10 @@ const CharacterForm = () => {
           ))}
         </ScrollContainer>
       ) : (
-        searchKeyword && (
+        suggestion && (
           <div>
-            {searchKeyword}
-            <button onClick={() => createTagHandler(searchKeyword)}>
+            {suggestion}
+            <button onClick={() => createTagHandler(suggestion)}>
               タグとして追加する
             </button>
           </div>

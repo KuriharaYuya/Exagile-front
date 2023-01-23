@@ -8,9 +8,14 @@ import {
 import character from "../redux/reducers/character";
 import { Character } from "../utils/type";
 
-export const fetchCharacterSearch = async (tgtWord: string) => {
+export const fetchCharacterSearch = async (
+  tgtWord: string,
+  appointId: string
+) => {
   return await axios
-    .get(characterSearch, { params: { characters: { tgtWord } } })
+    .get(characterSearch, {
+      params: { characters: { tgtWord, appoint_id: appointId } },
+    })
     .then((res) => res);
 };
 
