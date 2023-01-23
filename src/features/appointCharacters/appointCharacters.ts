@@ -2,9 +2,9 @@ import {
   fetchAppointCharacters,
   fetchCharactersBoundWithAppoint,
   fetchDeleteRelation,
-} from "../../../apis/appointCharacters";
-import { updateCharacterTags } from "../../reducers/appoints";
-import store from "../../store";
+} from "../../apis/appointCharacters";
+import { updateCharacterTags } from "../../redux/reducers/appoints";
+import store from "../../redux/store";
 
 export const requestCharacterTags = async (appointId: string) => {
   const { characters } = await fetchCharactersBoundWithAppoint(appointId).then(

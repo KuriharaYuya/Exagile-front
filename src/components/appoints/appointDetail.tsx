@@ -7,11 +7,11 @@ import {
 } from "../../utils/dateTime";
 import { formatDate } from "@fullcalendar/core";
 import React, { useEffect, useState } from "react";
-import { requestAppointDetail } from "../../redux/actions/appoints/getDetail";
+import { requestAppointDetail } from "../../features/appoints/getDetail";
 import {
   requestUpdateAppoint,
   updateStoreAppoint,
-} from "../../redux/actions/appoints/updateDetail";
+} from "../../features/appoints/updateDetail";
 import Router from "next/router";
 import { TextField } from "@mui/material";
 

@@ -1,6 +1,6 @@
-import { fetchCharacterSearch } from "../../../apis/characters";
-import { updateCharacters } from "../../reducers/appoints";
-import store from "../../store";
+import { fetchCharacterSearch } from "../../apis/characters";
+import { updateCharacters } from "../../redux/reducers/appoints";
+import store from "../../redux/store";
 
 export const requestCharacterSearch = async (tgtWord: string) => {
   const characters = await fetchCharacterSearch(tgtWord).then(

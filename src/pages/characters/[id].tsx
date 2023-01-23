@@ -18,7 +18,7 @@ import { fetchUpdateTopic } from "../../apis/topic";
 import {
   requestCharacterTopics,
   requestShowCharacter,
-} from "../../redux/actions/character/character";
+} from "../../features/character/character";
 import {
   updateCharacterDetails,
   updateTopics,

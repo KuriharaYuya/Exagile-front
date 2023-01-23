@@ -3,13 +3,16 @@ import {
   fetchCharacterTopics,
   fetchCreateCharacter,
   fetchShowCharacter,
-} from "../../../apis/characters";
+} from "../../apis/characters";
 import {
   updateModalCharacter,
   updateCharacterTags,
-} from "../../reducers/appoints";
-import { updateCharacterDetails, updateTopics } from "../../reducers/character";
-import store from "../../store";
+} from "../../redux/reducers/appoints";
+import {
+  updateCharacterDetails,
+  updateTopics,
+} from "../../redux/reducers/character";
+import store from "../../redux/store";
 
 export const requestCharacterDetail = async (
   appointId: string,

@@ -1,7 +1,7 @@
 import Router from "next/router";
-import { signInWithGoogle } from "../../../utils/auth";
-import { loginSuccess } from "../../reducers/auth";
-import store from "../../store";
+import { loginSuccess } from "../../redux/reducers/auth";
+import store from "../../redux/store";
+import { signInWithGoogle } from "../../utils/auth";
 interface User {
   user: {
     uid: string;

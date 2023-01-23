@@ -11,7 +11,7 @@ import {
   TableBody,
 } from "@mui/material";
 import { styled } from "@mui/system";
-import { requestCharacterSearch } from "../../redux/actions/appoints/characterSearch";
+import { requestCharacterSearch } from "../../features/appoints/characterSearch";
 import store, { RootState } from "../../redux/store";
 import { Character, Topic } from "../../utils/type";
 import Router, { useRouter } from "next/router";
@@ -19,11 +19,7 @@ import {
   deleteCharacterRelation,
   requestAddTag,
   requestCharacterTags,
-} from "../../redux/actions/appointCharacters/appointCharacters";
-import {
-  requestCreateCharacter,
-  requestModalCharacter,
-} from "../../redux/actions/character/character";
+} from "../../features/appointCharacters/appointCharacters";
 import { updateModalCharacter } from "../../redux/reducers/appoints";
 import { useSelector } from "react-redux";
 import { initialTopicState } from "../../utils/initialStates";
@@ -32,6 +28,10 @@ import {
   fetchNewTopic,
   fetchUpdateTopic,
 } from "../../apis/topic";
+import {
+  requestCreateCharacter,
+  requestModalCharacter,
+} from "../../features/character/character";
 
 const ScrollContainer = styled(Box)`
   height: 25px;
