@@ -71,14 +71,12 @@ const CharacterDetail = (props: CharacterDetailProps) => {
   };
 
   const onCharacterBlur = async () => {
-    // TODO 現在のreduxで管理してるcharacterのstateの情報でAPIを叩く
     await fetchUpdateCharacter(character);
     setCharacterEditing("");
   };
   const deleteHandle = async () => {
     // TODO: deleteHandlerかhandleDeleteかな
-    characterId = character.id;
-    await fetchDeleteCharacter(characterId);
+    await fetchDeleteCharacter(character.id);
     Router.back();
   };
   //TODO: nullよりもundefinedのほうがいいかも

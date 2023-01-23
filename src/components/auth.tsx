@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { fetchSessionCheck } from "../apis/auth";
 import { requestLogin } from "../redux/actions/auth/login";
 import { requestRegister } from "../redux/actions/auth/signup";
-import { isLoggedIn } from "../utils/auth"; //TODO: 使ってない関数はimportを削除すること！
 
 //TODO: これ直接pages/auth/index.tsxに書いてもいいかも
 const Auth = () => {

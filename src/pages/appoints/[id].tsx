@@ -20,7 +20,6 @@ const AppointDetail = ({ appointId }: { appointId: string }) => {
     Router.push("/");
   };
 
-  // TODO: 良き
   const onDeleteHandler = () => {
     fetchAppointDelete(appointId);
     Router.push("/");

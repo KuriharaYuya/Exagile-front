@@ -1,7 +1,6 @@
 import { getApps, initializeApp } from "firebase/app";
 import { GoogleAuthProvider } from "firebase/auth";
 
-//TODO: as stringいらないかな。
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY as string,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN as string,

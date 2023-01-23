@@ -1,5 +1,3 @@
-//TODO: なぜわざわざこいつらのためにファイル作った！？
-
 export const initialAppointState = {
   id: "",
   title: "",
