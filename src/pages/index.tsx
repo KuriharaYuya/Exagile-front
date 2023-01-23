@@ -2,8 +2,8 @@ import Router from "next/router";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchSessionCheck } from "../apis/auth";
-import Calender from "../containers/calender";
-import { requestLogout } from "../redux/actions/auth/logout";
+import Calender from "../components/calender";
+import { requestLogout } from "../features/auth/logout";
 import { isLoggedIn } from "../utils/auth";
 
 export default function Home() {

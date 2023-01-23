@@ -4,7 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import Router from "next/router";
 import { DatesSetArg } from "@fullcalendar/core";
-import { requestAppoints } from "../redux/actions/appoints/appointsIndex";
+import { requestAppoints } from "../features/appoints/appointsIndex";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { Button, Modal, TextField } from "@mui/material";

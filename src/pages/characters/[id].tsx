@@ -9,7 +9,7 @@ import { GetServerSideProps } from "next";
 import Link from "next/link";
 import Router from "next/router";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   fetchDeleteCharacter,
   fetchUpdateCharacter,
@@ -18,7 +18,7 @@ import { fetchUpdateTopic } from "../../apis/topic";
 import {
   requestCharacterTopics,
   requestShowCharacter,
-} from "../../redux/actions/character/character";
+} from "../../features/character/character";
 import {
   updateCharacterDetails,
   updateTopics,
@@ -28,7 +28,6 @@ import { Topic } from "../../utils/type";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const characterId: string = context.params!.id as string;
-
   return {
     props: {
       characterId,
@@ -36,7 +35,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-const CharacterDetail = ({ characterId }: { characterId: string }) => {
+type CharacterDetailProps = {
+  characterId: string;
+};
+
+const CharacterDetail = (props: CharacterDetailProps) => {
+  const dispatch = useDispatch();
+  const { characterId } = props;
   const { character, topics } = useSelector(
     (state: RootState) => state.characterReducer
   );
@@ -49,33 +54,30 @@ const CharacterDetail = ({ characterId }: { characterId: string }) => {
 
   const [characterEditing, setCharacterEditing] = useState("");
 
-  const openInputFiled = (filed: string) => {
-    console.log(characterEditing === filed);
+  const handleOpenInputFiled = (filed: string) => {
     setCharacterEditing(filed);
   };
 
   const characterOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const field = characterEditing;
-    store.dispatch(
-      updateCharacterDetails({ ...character, [field]: e.target.value })
-    );
+    dispatch(updateCharacterDetails({ ...character, [field]: e.target.value }));
   };
 
   const onCharacterBlur = async () => {
-    // TODO 現在のreduxで管理してるcharacterのstateの情報でAPIを叩く
     await fetchUpdateCharacter(character);
     setCharacterEditing("");
   };
-  const deleteHandle = async () => {
-    characterId = character.id;
-    await fetchDeleteCharacter(characterId);
+  const deleteHandler = async () => {
+    await fetchDeleteCharacter(character.id);
     Router.back();
   };
-
-  const [editingTopic, setEditingTopic] = useState<Topic | null>(null);
+  const [editingTopic, setEditingTopic] = useState<Topic | undefined>(
+    undefined
+  );
+  // 変数が初期化されているわけではないという事を明示的に示すためにundefinedをしようする
   const [editingTopicFiled, setEditingTopicFiled] = useState("");
 
-  const selectTopicCell = (topic: Topic, filed: string) => {
+  const handleSelectTopic = (topic: Topic, filed: string) => {
     setEditingTopic(topic);
     setEditingTopicFiled(filed);
   };
@@ -84,12 +86,12 @@ const CharacterDetail = ({ characterId }: { characterId: string }) => {
     const tgtTopic: Topic = topics.find(
       (topic) => topic.id === editingTopic?.id
     )!;
-    await fetchUpdateTopic(tgtTopic);
-    setEditingTopic(null);
+    fetchUpdateTopic(tgtTopic);
+    setEditingTopic(undefined);
     setEditingTopicFiled("");
   };
 
-  const changeTopicField = async (
+  const handleTopicFieldChange = async (
     field: string,
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -106,7 +108,7 @@ const CharacterDetail = ({ characterId }: { characterId: string }) => {
   return (
     <>
       <div>
-        <div onClick={() => openInputFiled("name")}>
+        <div onClick={() => handleOpenInputFiled("name")}>
           {characterEditing === "name" ? (
             <input
               type="text"
@@ -118,7 +120,7 @@ const CharacterDetail = ({ characterId }: { characterId: string }) => {
             <p>{character.name}</p>
           )}
         </div>
-        <div onClick={() => openInputFiled("profile")}>
+        <div onClick={() => handleOpenInputFiled("profile")}>
           {characterEditing === "profile" ? (
             <input
               type="text"
@@ -148,7 +150,7 @@ const CharacterDetail = ({ characterId }: { characterId: string }) => {
             {topics.map((topic) => (
               <TableRow key={topic.id}>
                 <TableCell
-                  onClick={() => selectTopicCell(topic, "title")}
+                  onClick={() => handleSelectTopic(topic, "title")}
                   onBlur={topicCellBlur}
                 >
                   {editingTopic?.id == topic.id &&
@@ -156,14 +158,14 @@ const CharacterDetail = ({ characterId }: { characterId: string }) => {
                     <input
                       type="text"
                       value={topic.title}
-                      onChange={(e) => changeTopicField("title", e)}
+                      onChange={(e) => handleTopicFieldChange("title", e)}
                     />
                   ) : (
                     topic.title
                   )}
                 </TableCell>
                 <TableCell
-                  onClick={() => selectTopicCell(topic, "content")}
+                  onClick={() => handleSelectTopic(topic, "content")}
                   onBlur={topicCellBlur}
                 >
                   {editingTopic?.id == topic.id &&
@@ -171,7 +173,7 @@ const CharacterDetail = ({ characterId }: { characterId: string }) => {
                     <input
                       type="text"
                       value={topic.content}
-                      onChange={(e) => changeTopicField("content", e)}
+                      onChange={(e) => handleTopicFieldChange("content", e)}
                     />
                   ) : (
                     topic.content
@@ -191,7 +193,7 @@ const CharacterDetail = ({ characterId }: { characterId: string }) => {
         </Table>
       </div>
       <button onClick={() => Router.push("/")}>ホームに戻る</button>
-      <button onClick={deleteHandle}>delete character</button>
+      <button onClick={deleteHandler}>delete character</button>
     </>
   );
 };

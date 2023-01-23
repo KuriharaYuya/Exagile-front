@@ -1,8 +1,17 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { Box, Button, TextField } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  TextField,
+  Modal,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from "@mui/material";
 import { styled } from "@mui/system";
-import { requestCharacterSearch } from "../../redux/actions/appoints/characterSearch";
+import { requestCharacterSearch } from "../../features/appoints/characterSearch";
 import store, { RootState } from "../../redux/store";
 import { Character, Topic } from "../../utils/type";
 import Router, { useRouter } from "next/router";
@@ -10,19 +19,7 @@ import {
   deleteCharacterRelation,
   requestAddTag,
   requestCharacterTags,
-} from "../../redux/actions/appointCharacters/appointCharacters";
-import { Modal } from "@mui/material";
-import {
-  requestCreateCharacter,
-  requestModalCharacter,
-} from "../../redux/actions/character/character";
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-} from "@mui/material";
+} from "../../features/appointCharacters/appointCharacters";
 import { updateModalCharacter } from "../../redux/reducers/appoints";
 import { useSelector } from "react-redux";
 import { initialTopicState } from "../../utils/initialStates";
@@ -31,6 +28,10 @@ import {
   fetchNewTopic,
   fetchUpdateTopic,
 } from "../../apis/topic";
+import {
+  requestCreateCharacter,
+  requestModalCharacter,
+} from "../../features/character/character";
 
 const ScrollContainer = styled(Box)`
   height: 25px;
@@ -77,6 +78,7 @@ const CharacterForm = () => {
   };
 
   const handleFocus = async () => {
+    console.log("yes");
     if (searchKeyword.length > 0) return;
     await requestCharacterSearch(searchKeyword);
     // 完全に処理を待つことができないため、stateの再定義によって実現
@@ -89,7 +91,6 @@ const CharacterForm = () => {
     if (searchKeyword.length === 0) {
       setTimeout(() => {
         setIsFirsRender(true);
-        // TODO もし追加しているなら、trueに変更しない。storeから状態をもらってくる
       }, 500);
     }
   };
@@ -124,7 +125,6 @@ const CharacterForm = () => {
     Router.reload();
   };
   const addTopicHandler = async () => {
-    // TODO APIを叩く、レンスポンスをnewTopicに格納する
     const characterId = modalCharacter.character.id;
     const appointId = id;
     const newTopic = await fetchNewTopic(characterId, appointId).then(

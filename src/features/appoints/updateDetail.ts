@@ -1,7 +1,7 @@
-import { updateAppointDetail } from "../../../apis/appoint";
-import { Appoint } from "../../../utils/type";
-import { updateEditingAppoint } from "../../reducers/appoints";
-import store from "../../store";
+import { updateAppointDetail } from "../../apis/appoint";
+import { Appoint } from "../../utils/type";
+import { updateEditingAppoint } from "../../redux/reducers/appoints";
+import store from "../../redux/store";
 
 export const requestUpdateAppoint = async () => {
   const state = store.getState().appointReducer;
