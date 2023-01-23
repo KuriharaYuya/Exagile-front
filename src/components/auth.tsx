@@ -9,7 +9,6 @@ const Auth = () => {
   const dispatch = useDispatch();
   const handleRegister = () => {
     dispatch(requestRegister());
-    // await signUpWithGoogle().then((res) => res.success);
   };
 
   const handleLogin = () => {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { signup } from "../urls";
+import { signup } from "../../config/urls";
 
 export const fetchSignUp = async (uid: string, name: string) => {
   //TODO: このaxiosはインスタンス化して使いまわしたい https://github.com/axios/axios#creating-an-instance
