@@ -20,3 +20,8 @@ export const topicDetail = (topicId: string) => {
 export const characterShow = (characterId: string) => {
   return `${characterSearch}/${characterId}` as string;
 };
+export const characterCommunities = (characterId: string) => {
+  return `${characterSearch}/${characterId}/communities_suggestion` as string;
+};
+export const charactersCommunities = `${DEFAULT_API_LOCALHOST}/characters_communities`;
+export const unregisterCommunity = `${DEFAULT_API_LOCALHOST}/characters/unregister_community`;

@@ -4,6 +4,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  TextField,
 } from "@mui/material";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
@@ -11,20 +12,21 @@ import Router from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  fetchAddCommunityToCharacter,
   fetchDeleteCharacter,
+  fetchDeleteCharactersCommunities,
+  fetchSearchCommunities,
   fetchUpdateCharacter,
 } from "../../apis/characters";
 import { fetchUpdateTopic } from "../../apis/topic";
-import {
-  requestCharacterTopics,
-  requestShowCharacter,
-} from "../../features/character/character";
+import { requestShowCharacter } from "../../features/character/character";
 import {
   updateCharacterDetails,
+  updateCommunities,
   updateTopics,
 } from "../../redux/reducers/character";
 import store, { RootState } from "../../redux/store";
-import { Topic } from "../../utils/type";
+import { Communities, Community, Topic } from "../../utils/type";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const characterId: string = context.params!.id as string;
@@ -42,13 +44,12 @@ type CharacterDetailProps = {
 const CharacterDetail = (props: CharacterDetailProps) => {
   const dispatch = useDispatch();
   const { characterId } = props;
-  const { character, topics } = useSelector(
+  const { character, topics, communities } = useSelector(
     (state: RootState) => state.characterReducer
   );
   useEffect(() => {
     (async () => {
       await requestShowCharacter(characterId);
-      await requestCharacterTopics(characterId);
     })();
   }, []);
 
@@ -104,7 +105,41 @@ const CharacterDetail = (props: CharacterDetailProps) => {
     });
     store.dispatch(updateTopics(updatedTopics));
   };
-
+  const [isSuggestDisplay, setIsSuggestDisplay] = useState(false);
+  const openSuggestDisplayHandler = async () => {
+    type Res = {
+      communities: Communities;
+    };
+    const { communities }: Res = await fetchSearchCommunities(characterId).then(
+      (res) => res.data
+    );
+    setSuggestCommunities(communities);
+    setIsSuggestDisplay(true);
+  };
+  const closeSuggestDisplayHandler = () => {
+    setIsSuggestDisplay(false);
+  };
+  const [suggestCommunities, setSuggestCommunities] = useState<
+    Communities | undefined
+  >(undefined);
+  const addCommunityHandler = async (tgtCommunity: Community) => {
+    await fetchAddCommunityToCharacter(tgtCommunity.id, character.id);
+    const updatedCommunities: (Community | undefined)[] | undefined =
+      suggestCommunities!.filter((community) => {
+        if (community.id !== tgtCommunity.id) {
+          return community;
+        }
+      });
+    dispatch(updateCommunities([...communities, tgtCommunity]));
+    setSuggestCommunities(updatedCommunities as Communities);
+  };
+  const communityUnregisterHandler = async (communityId: string) => {
+    await fetchDeleteCharactersCommunities(communityId, characterId);
+    const updatedCommunities: Communities = communities.filter((community) => {
+      if (community.id !== communityId) return community;
+    });
+    dispatch(updateCommunities(updatedCommunities));
+  };
   return (
     <>
       <div>
@@ -134,6 +169,39 @@ const CharacterDetail = (props: CharacterDetailProps) => {
             <p>profile</p>
           )}
         </div>
+      </div>
+      <div>
+        <>
+          <p>community</p>
+          {isSuggestDisplay ? (
+            <button onClick={closeSuggestDisplayHandler}>
+              hide suggestions
+            </button>
+          ) : (
+            <button onClick={openSuggestDisplayHandler}>add community</button>
+          )}
+          {isSuggestDisplay &&
+            suggestCommunities?.map((community) => (
+              <div key={community.id}>
+                {community.name}
+                <button onClick={() => addCommunityHandler(community)}>
+                  新しくタグとして追加する
+                </button>
+              </div>
+            ))}
+          <div className="communities">
+            {communities.map((community) => (
+              <>
+                <p key={community.id}>{community.name}</p>
+                <button
+                  onClick={() => communityUnregisterHandler(community.id)}
+                >
+                  紐づきを解消する
+                </button>
+              </>
+            ))}
+          </div>
+        </>
       </div>
       <div>
         <p>topics</p>

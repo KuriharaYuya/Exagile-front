@@ -10,6 +10,7 @@ import {
 } from "../../redux/reducers/appoints";
 import {
   updateCharacterDetails,
+  updateCommunities,
   updateTopics,
 } from "../../redux/reducers/character";
 import store from "../../redux/store";
@@ -36,8 +37,15 @@ export const requestModalCharacter = async (
 };
 
 export const requestShowCharacter = async (characterId: string) => {
-  const { character } = (await fetchShowCharacter(characterId)).data;
-  store.dispatch(updateCharacterDetails(character));
+  const { character, topics, communities } = (
+    await fetchShowCharacter(characterId)
+  ).data;
+  const updates = [
+    updateCharacterDetails(character),
+    updateTopics(topics),
+    updateCommunities(communities),
+  ];
+  updates.map((update) => store.dispatch(update));
 };
 export const requestCreateCharacter = async (
   keyword: string,

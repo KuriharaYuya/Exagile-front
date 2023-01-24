@@ -48,3 +48,11 @@ export type CharacterTopic = {
   appointStart: string;
 };
 export type CharacterTopics = CharacterTopic[];
+
+export type Community = {
+  userId: string;
+  id: string;
+  characterId: string;
+  name: string;
+};
+export type Communities = Community[];
