@@ -56,3 +56,8 @@ export type Community = {
   name: string;
 };
 export type Communities = Community[];
+
+export type CharacterDataset = {
+  character: Character;
+  communities: Community[];
+}[];

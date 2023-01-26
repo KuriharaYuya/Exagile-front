@@ -25,3 +25,8 @@ export const characterCommunities = (characterId: string) => {
 };
 export const charactersCommunities = `${DEFAULT_API_LOCALHOST}/characters_communities`;
 export const unregisterCommunity = `${DEFAULT_API_LOCALHOST}/characters/unregister_community`;
+export const indexCharacterCommunities = `${DEFAULT_API_LOCALHOST}/characters/characters_communities`;
+export const communities = `${DEFAULT_API_LOCALHOST}/communities`;
+export const community = (communityId: string) => {
+  return `${communities}/${communityId}`;
+};

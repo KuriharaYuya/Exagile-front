@@ -26,6 +26,10 @@ export default function Home() {
       <h1>ホームです！</h1>
       <Calender />
       <button onClick={handleLogout}>ログアウト</button>
+      <br />
+      <button onClick={() => Router.push("/characters")}>
+        キャラクターの一覧へ
+      </button>
     </>
   );
 }

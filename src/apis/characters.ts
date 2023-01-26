@@ -5,10 +5,10 @@ import {
   charactersCommunities,
   characterSearch,
   characterShow,
+  indexCharacterCommunities,
   topic,
   unregisterCommunity,
 } from "../config/urls";
-import character from "../redux/reducers/character";
 import { Character } from "../utils/type";
 
 export const fetchCharacterSearch = async (
@@ -83,4 +83,8 @@ export const fetchDeleteCharactersCommunities = async (
       character: { community_id: communityId, character_id: characterId },
     })
     .then((res) => res);
+};
+
+export const fetchIndexCharacterCommunities = async (startWith: number) => {
+  return await axios.get(indexCharacterCommunities).then((res) => res);
 };
