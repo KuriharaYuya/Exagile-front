@@ -1,11 +1,14 @@
 import axios from "axios";
 import {
+  characterCommunities,
   characterDetail,
+  charactersCommunities,
   characterSearch,
   characterShow,
+  indexCharacterCommunities,
   topic,
+  unregisterCommunity,
 } from "../config/urls";
-import character from "../redux/reducers/character";
 import { Character } from "../utils/type";
 
 export const fetchCharacterSearch = async (
@@ -52,4 +55,36 @@ export const fetchUpdateCharacter = async (character: Character) => {
 
 export const fetchDeleteCharacter = async (characterId: string) => {
   return await axios.delete(characterShow(characterId));
+};
+export const fetchSearchCommunities = async (characterId: string) => {
+  return await axios.get(characterCommunities(characterId)).then((res) => res);
+};
+export const fetchAddCommunityToCharacter = async (
+  communityId: string,
+  characterId: string
+) => {
+  return await axios
+    .post(charactersCommunities, {
+      character_communities: {
+        community_id: communityId,
+        character_id: characterId,
+      },
+    })
+    .then((res) => res);
+};
+
+export const fetchDeleteCharactersCommunities = async (
+  communityId: string,
+  characterId: string
+) => {
+  return await axios
+    // TODO キャラクターコントーラーにおいて、communityのunregisterアクションを作成して完了
+    .post(unregisterCommunity, {
+      character: { community_id: communityId, character_id: characterId },
+    })
+    .then((res) => res);
+};
+
+export const fetchIndexCharacterCommunities = async (startWith: number) => {
+  return await axios.get(indexCharacterCommunities).then((res) => res);
 };
