@@ -4,7 +4,14 @@ import {
   initialCharacterState,
   initialTagModalState,
 } from "../../utils/initialStates";
-import { Appoint, Appoints, Characters, TagModalState } from "../../utils/type";
+import {
+  Appoint,
+  Appoints,
+  Characters,
+  Faq,
+  Faqs,
+  TagModalState,
+} from "../../utils/type";
 
 const appointsSlice = createSlice({
   name: "appoints",
@@ -14,12 +21,14 @@ const appointsSlice = createSlice({
     characters: [initialCharacterState],
     characterTags: [initialCharacterState],
     modalCharacter: initialTagModalState,
+    faqs: { inspiredFaqs: undefined, appliedFaqs: undefined },
   } as {
     appoints: Appoints;
     editing: Appoint;
     characters: Characters;
     characterTags: Characters;
     modalCharacter: TagModalState;
+    faqs: { inspiredFaqs: Faq[] | undefined; appliedFaqs: Faq[] | undefined };
   },
   reducers: {
     updateAppoints: (state, action) => {
@@ -36,11 +45,14 @@ const appointsSlice = createSlice({
     },
     updateCharacterTags: (state, action) => {
       state.characterTags = action.payload;
-      console.log(state.characterTags);
       return state;
     },
     updateModalCharacter: (state, action) => {
       state.modalCharacter = action.payload;
+      return state;
+    },
+    updateFaqs: (state, action) => {
+      state.faqs = action.payload;
       return state;
     },
   },
@@ -52,6 +64,7 @@ export const {
   updateCharacters,
   updateCharacterTags,
   updateModalCharacter,
+  updateFaqs,
 } = appointsSlice.actions;
 
 export default appointsSlice.reducer;

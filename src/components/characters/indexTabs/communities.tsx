@@ -39,7 +39,6 @@ const CommunitiesTab = () => {
     const { community } = await fetchAddCommunityHandler(name).then(
       (res) => res.data
     );
-    console.log(community);
     setCommunities((prev) => [...prev!, community]);
     handleClose();
   };

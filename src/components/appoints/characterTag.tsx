@@ -265,7 +265,7 @@ const CharacterForm = () => {
               </TableHead>
               <TableBody>
                 {modalCharacter.topics.map((topic) => (
-                  <>
+                  <div key={topic.id}>
                     <button onClick={() => onDeleteHandle(topic.id)}>
                       削除
                     </button>
@@ -306,7 +306,7 @@ const CharacterForm = () => {
                       </TableCell>
                       <TableCell>{topic.updated_at}</TableCell>
                     </TableRow>
-                  </>
+                  </div>
                 ))}
               </TableBody>
             </Table>

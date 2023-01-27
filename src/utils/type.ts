@@ -61,3 +61,17 @@ export type CharacterDataset = {
   character: Character;
   communities: Community[];
 }[];
+
+export type Faq = {
+  id: string;
+  name: string;
+  content: string;
+  inspiredFaqs: string;
+  appliedFaqs: string;
+  created_at: string;
+  updated_at: string;
+};
+export type Faqs = {
+  inspiredFaqs: Faq[] | undefined;
+  appliedFaqs: Faq[] | undefined;
+};

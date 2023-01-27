@@ -30,3 +30,6 @@ export const communities = `${DEFAULT_API_LOCALHOST}/communities`;
 export const community = (communityId: string) => {
   return `${communities}/${communityId}`;
 };
+export const faqDetail = (faqId: string) =>
+  `${DEFAULT_API_LOCALHOST}/faqs/${faqId}`;
+export const faqs = `${DEFAULT_API_LOCALHOST}/faqs`;

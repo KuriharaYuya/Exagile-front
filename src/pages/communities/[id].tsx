@@ -35,7 +35,6 @@ const Community = ({ communityId }: { communityId: string }) => {
       const data: CharacterCommunities = await fetchCommunityDataSets(
         communityId
       ).then((res) => res.data);
-      console.log(data);
       // const { community, characters } = data;
       setDataset(data);
     })();

@@ -19,6 +19,7 @@ import "react-markdown-editor-lite/lib/index.css";
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 import CharacterForm from "./characterTag";
+import Faqs from "../faqs/faqs";
 
 const AppointDetail = ({ appointId }: { appointId: string }) => {
   const mdParser = new MarkdownIt();
@@ -30,7 +31,9 @@ const AppointDetail = ({ appointId }: { appointId: string }) => {
   const [onChanging, setOnChanging] = useState(false);
 
   useEffect(() => {
-    requestAppointDetail(appointId);
+    (async () => {
+      await requestAppointDetail(appointId);
+    })();
     setOnChanging(false);
     const handleRouteChange = (url: string) => {
       requestUpdateAppoint();
@@ -143,6 +146,9 @@ const AppointDetail = ({ appointId }: { appointId: string }) => {
         renderHTML={(text) => mdParser.render(text)}
       />
       <CharacterForm />
+      <br />
+      <Faqs appointId={appointId} />
+      <br />
     </>
   );
 };
