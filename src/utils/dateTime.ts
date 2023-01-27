@@ -29,6 +29,10 @@ export const parseDateTimeLocal = (dateTime: string): string => {
   return formatted;
 };
 
+export const formatRubyDateTimeToJs = (dateTime: string): string => {
+  return moment(dateTime).tz("Asia/Tokyo").format("YYYY/MM/DD HH:mm");
+};
+
 type momentType = ReturnType<typeof moment>;
 export const formatTokyoDateTime = (momentObj: momentType) => {
   return momentObj.tz("Asia/Tokyo").format("YYYY-MM-DDThh:mm:ss");
