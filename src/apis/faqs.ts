@@ -1,6 +1,6 @@
 import axios from "axios";
 import { faqDetail, faqs } from "../config/urls";
-import { Faq } from "../utils/type";
+import { Faq, UserManipulateOpts } from "../utils/type";
 
 export const fetchUpdateFaq = async (faq: Faq) => {
   const faqId = faq.id;
@@ -35,4 +35,8 @@ export const fetchAddFaq = async (
   return await axios.post(faqs, {
     faq: { name, content, faq_type: type, appoint_id: appointId },
   });
+};
+
+export const fetchFaqIndex = async (dataQtl: number) => {
+  return axios.get(faqs, { params: { data_qty: dataQtl } });
 };

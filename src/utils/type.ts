@@ -75,3 +75,10 @@ export type Faqs = {
   inspiredFaqs: Faq[] | undefined;
   appliedFaqs: Faq[] | undefined;
 };
+
+export type UserManipulateOpts = {
+  faqs: {
+    sort: { created_at: "asc" | "desc"; tags: "asc" | "desc" };
+    filter: { tags: string };
+  };
+};

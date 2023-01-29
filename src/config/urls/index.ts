@@ -33,3 +33,4 @@ export const community = (communityId: string) => {
 export const faqDetail = (faqId: string) =>
   `${DEFAULT_API_LOCALHOST}/faqs/${faqId}`;
 export const faqs = `${DEFAULT_API_LOCALHOST}/faqs`;
+export const usersManipulateOpt = `${DEFAULT_API_LOCALHOST}/users/options`;
