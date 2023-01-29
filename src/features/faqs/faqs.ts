@@ -1,5 +1,11 @@
-import { fetchAddFaq, fetchDeleteFaq, fetchUpdateFaq } from "../../apis/faqs";
+import {
+  fetchAddFaq,
+  fetchDeleteFaq,
+  fetchFaqIndex,
+  fetchUpdateFaq,
+} from "../../apis/faqs";
 import { updateFaqs } from "../../redux/reducers/appoints";
+import { updateFaqIndex } from "../../redux/reducers/faq";
 import store from "../../redux/store";
 import { Faq } from "../../utils/type";
 type FaqType = "inspiredFaqs" | "appliedFaqs";
@@ -49,4 +55,11 @@ export const requestAddFaq = async (
   const tgtFaqs = faqs[faqType]!;
   const updatedTgtFaqs = [newFaq, ...tgtFaqs];
   store.dispatch(updateFaqs({ ...faqs, [faqType]: updatedTgtFaqs }));
+};
+
+export const requestFaqDataSets = async (dataQtl: number) => {
+  const { faqs, length, options } = await fetchFaqIndex(dataQtl).then(
+    (res) => res.data
+  );
+  store.dispatch(updateFaqIndex({ faqs, length, manipulateOpts: options }));
 };
