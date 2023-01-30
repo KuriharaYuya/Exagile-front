@@ -34,3 +34,6 @@ export const faqDetail = (faqId: string) =>
   `${DEFAULT_API_LOCALHOST}/faqs/${faqId}`;
 export const faqs = `${DEFAULT_API_LOCALHOST}/faqs`;
 export const usersManipulateOpt = `${DEFAULT_API_LOCALHOST}/users/options`;
+export const insights = `${DEFAULT_API_LOCALHOST}/insights`;
+export const insight = (insightId: string) =>
+  `${DEFAULT_API_LOCALHOST}/insights/${insightId}`;

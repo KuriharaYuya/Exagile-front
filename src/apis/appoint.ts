@@ -1,5 +1,5 @@
 import axios from "axios";
-import { appointDetail, appoints } from "../config/urls";
+import { appointDetail, appoints, insights } from "../config/urls";
 import { Appoint } from "../utils/type";
 
 export const fetchAppoints = async (startStr: string, endStr: string) => {
@@ -33,4 +33,8 @@ export const fetchNewAppoint = async (appoint: Appoint) => {
 
 export const fetchAppointDelete = async (appointId: string) => {
   return await axios.delete(appointDetail(appointId)).then((res) => res);
+};
+
+export const fetchCreateInsight = async (appointId: string) => {
+  return axios.post(insights, { id: appointId });
 };
