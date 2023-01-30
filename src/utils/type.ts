@@ -82,3 +82,18 @@ export type UserManipulateOpts = {
     filter: { tags: string };
   };
 };
+
+export type Insight = {
+  id: string;
+  user_id: string;
+  title: string;
+  content: string | null;
+  appoint_id: string;
+  archived: boolean;
+  created_at: string;
+  updated_at: string;
+  retention_level: number;
+  review_at: string;
+  review_count: number;
+};
+export type Insights = Insight[];

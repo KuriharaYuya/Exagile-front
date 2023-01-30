@@ -9,7 +9,7 @@ import {
   Appoints,
   Characters,
   Faq,
-  Faqs,
+  Insights,
   TagModalState,
 } from "../../utils/type";
 
@@ -22,6 +22,7 @@ const appointsSlice = createSlice({
     characterTags: [initialCharacterState],
     modalCharacter: initialTagModalState,
     faqs: { inspiredFaqs: undefined, appliedFaqs: undefined },
+    insights: [{}],
   } as {
     appoints: Appoints;
     editing: Appoint;
@@ -29,6 +30,7 @@ const appointsSlice = createSlice({
     characterTags: Characters;
     modalCharacter: TagModalState;
     faqs: { inspiredFaqs: Faq[] | undefined; appliedFaqs: Faq[] | undefined };
+    insights: Insights;
   },
   reducers: {
     updateAppoints: (state, action) => {
@@ -55,6 +57,10 @@ const appointsSlice = createSlice({
       state.faqs = action.payload;
       return state;
     },
+    updateInsights: (state, action) => {
+      state.insights = action.payload;
+      return state;
+    },
   },
 });
 
@@ -65,6 +71,7 @@ export const {
   updateCharacterTags,
   updateModalCharacter,
   updateFaqs,
+  updateInsights,
 } = appointsSlice.actions;
 
 export default appointsSlice.reducer;

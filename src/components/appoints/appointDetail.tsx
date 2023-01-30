@@ -20,6 +20,7 @@ import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 import CharacterForm from "./characterTag";
 import Faqs from "../faqs/faqs";
+import Insights from "./insights";
 
 const AppointDetail = ({ appointId }: { appointId: string }) => {
   const mdParser = new MarkdownIt();
@@ -149,6 +150,7 @@ const AppointDetail = ({ appointId }: { appointId: string }) => {
       <br />
       <Faqs appointId={appointId} />
       <br />
+      <Insights appointId={appointId} />
     </>
   );
 };
