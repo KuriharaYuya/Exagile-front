@@ -14,12 +14,10 @@ const faqsSlice = createSlice({
   reducers: {
     updateFaqIndex: (state, action) => {
       state = action.payload;
-      console.log(action.payload, "log");
       return state;
     },
     updateUserManipulateOpts: (state, action) => {
       state.manipulateOpts = action.payload;
-      console.log(action.payload, "ada");
       return state;
     },
   },

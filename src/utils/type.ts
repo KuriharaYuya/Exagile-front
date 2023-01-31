@@ -92,8 +92,7 @@ export type Insight = {
   archived: boolean;
   created_at: string;
   updated_at: string;
-  retention_level: number;
-  review_at: string;
-  review_count: number;
+  reviewed_at: string;
+  concerning: boolean;
 };
 export type Insights = Insight[];

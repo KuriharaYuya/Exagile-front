@@ -38,6 +38,7 @@ const CharactersTable = (props: Props) => {
         rowsPerPage={rowsPerPageState}
         pageState={pageState}
         onPageChange={handleChangePage}
+        headers={undefined}
       >
         {data?.map((data, index) => {
           const { character, communities } = data;

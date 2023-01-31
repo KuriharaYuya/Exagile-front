@@ -2,9 +2,13 @@ import {
   Paper,
   Table,
   TableBody,
+  TableCell,
   TableContainer,
+  TableHead,
   TablePagination,
+  TableRow,
 } from "@mui/material";
+import { title } from "process";
 import React, { ReactNode } from "react";
 
 type Props = {
@@ -13,6 +17,7 @@ type Props = {
   pageState: number;
   onPageChange: (event: any, page: number) => void;
   children: ReactNode;
+  headers: string[] | undefined;
 };
 const TablePaginate = ({
   count,
@@ -20,6 +25,7 @@ const TablePaginate = ({
   pageState,
   onPageChange,
   children,
+  headers,
 }: Props) => {
   const tablePaginationProps = {
     rowsPerPageOptions: [25],
@@ -35,6 +41,15 @@ const TablePaginate = ({
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
+            {headers && (
+              <TableHead>
+                <TableRow>
+                  {headers.map((title, index) => {
+                    return <TableCell key={index}>{title}</TableCell>;
+                  })}
+                </TableRow>
+              </TableHead>
+            )}
             <TableBody>{children}</TableBody>
           </Table>
         </TableContainer>

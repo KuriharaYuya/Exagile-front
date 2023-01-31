@@ -38,3 +38,5 @@ export const insights = `${DEFAULT_API_LOCALHOST}/insights`;
 export const insight = (insightId: string) =>
   `${DEFAULT_API_LOCALHOST}/insights/${insightId}`;
 export const reviews = `${insights}/reviews`;
+export const concerns = `${insights}/concerns`;
+export const archives = `${insights}/archives`;

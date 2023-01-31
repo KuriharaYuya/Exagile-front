@@ -50,7 +50,7 @@ const Faqs = () => {
   }, [pageState, rowsPerPage, faqs]);
   const handleChangePage = (event: any, newPage: number) => {
     (async () => {
-      const dataQtl = (pageState + 1) * rowsPerPage + 1;
+      const dataQtl = newPage * rowsPerPage + 1;
       await requestFaqDataSets(dataQtl);
     })();
     setPageState(newPage);
