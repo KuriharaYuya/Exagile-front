@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import FaqTable from "./faqTable";
+import FaqTable from "./faqCards";
 type Props = {
   appointId: string;
 };

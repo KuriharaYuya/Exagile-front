@@ -37,3 +37,4 @@ export const usersManipulateOpt = `${DEFAULT_API_LOCALHOST}/users/options`;
 export const insights = `${DEFAULT_API_LOCALHOST}/insights`;
 export const insight = (insightId: string) =>
   `${DEFAULT_API_LOCALHOST}/insights/${insightId}`;
+export const reviews = `${insights}/reviews`;
