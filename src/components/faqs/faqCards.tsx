@@ -91,59 +91,58 @@ const FaqTable = ({ faqs, faqType, appointId }: Props) => {
     <>
       <h3>{faqType}</h3>
       <div>
-        {faqs &&
-          faqs.map((faq, index) => {
-            return (
-              <FaqCard key={index}>
-                <CardContent>
-                  {faq &&
-                  editingFaq.faq?.id === faq.id &&
-                  editingFaq.columnType === "name" ? (
-                    <input
-                      ref={inputRef}
-                      type="text"
-                      value={editingFaq.faq.name}
-                      onChange={(e) => onColumnChangeHandler(e, "name")}
-                      onBlur={() => onEndEditHandler("name")}
-                    />
-                  ) : (
-                    <Typography
-                      variant="subtitle1"
-                      component="h4"
-                      onClick={() => onEditHandler("name", faq)}
-                    >
-                      {faq.name}
-                      <button onClick={() => onDeleteHandler(faq.id)}>
-                        削除
-                      </button>
-                    </Typography>
-                  )}
-                  {faq &&
-                  editingFaq.faq?.id === faq.id &&
-                  editingFaq.columnType === "content" ? (
-                    <textarea
-                      ref={textareaRef}
-                      value={editingFaq.faq.content}
-                      onChange={(e) => onColumnChangeHandler(e, "content")}
-                      onBlur={() => onEndEditHandler("content")}
-                    />
-                  ) : (
-                    <Typography
-                      variant="subtitle1"
-                      component="h4"
-                      onClick={() => onEditHandler("content", faq)}
-                    >
-                      {faq.content}
-                    </Typography>
-                  )}
-                  <Typography variant="caption" color="textSecondary">
-                    updated at: {formatRubyDateTimeToJs(faq.updated_at)}
-                    {/* updated at: {formatDateTimeLocal(faq.updated_at)} */}
+        {faqs?.map((faq, index) => {
+          return (
+            <FaqCard key={index}>
+              <CardContent>
+                {faq &&
+                editingFaq.faq?.id === faq.id &&
+                editingFaq.columnType === "name" ? (
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={editingFaq.faq.name}
+                    onChange={(e) => onColumnChangeHandler(e, "name")}
+                    onBlur={() => onEndEditHandler("name")}
+                  />
+                ) : (
+                  <Typography
+                    variant="subtitle1"
+                    component="h4"
+                    onClick={() => onEditHandler("name", faq)}
+                  >
+                    {faq.name}
+                    <button onClick={() => onDeleteHandler(faq.id)}>
+                      削除
+                    </button>
                   </Typography>
-                </CardContent>
-              </FaqCard>
-            );
-          })}
+                )}
+                {faq &&
+                editingFaq.faq?.id === faq.id &&
+                editingFaq.columnType === "content" ? (
+                  <textarea
+                    ref={textareaRef}
+                    value={editingFaq.faq.content}
+                    onChange={(e) => onColumnChangeHandler(e, "content")}
+                    onBlur={() => onEndEditHandler("content")}
+                  />
+                ) : (
+                  <Typography
+                    variant="subtitle1"
+                    component="h4"
+                    onClick={() => onEditHandler("content", faq)}
+                  >
+                    {faq.content}
+                  </Typography>
+                )}
+                <Typography variant="caption" color="textSecondary">
+                  updated at: {formatRubyDateTimeToJs(faq.updated_at)}
+                  {/* updated at: {formatDateTimeLocal(faq.updated_at)} */}
+                </Typography>
+              </CardContent>
+            </FaqCard>
+          );
+        })}
       </div>
       <Modal
         open={isOpen}

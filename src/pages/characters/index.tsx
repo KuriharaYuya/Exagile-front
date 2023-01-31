@@ -1,6 +1,6 @@
 import { AppBar, Tab, Tabs } from "@mui/material";
 import { GetServerSideProps } from "next";
-import React from "react";
+import React, { useState } from "react";
 import Characters from "../../components/characters/indexTabs/characters";
 import Communities from "../../components/characters/indexTabs/communities";
 
@@ -15,8 +15,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 type Props = { tabNumber: number };
-export default function SimpleTabs({ tabNumber }: Props) {
-  const [value, setValue] = React.useState(tabNumber);
+const SimpleTabs = ({ tabNumber }: Props) => {
+  const [value, setValue] = useState(tabNumber);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
@@ -40,4 +40,6 @@ export default function SimpleTabs({ tabNumber }: Props) {
       {value === 1 && <Communities />}
     </>
   );
-}
+};
+
+export default SimpleTabs;
