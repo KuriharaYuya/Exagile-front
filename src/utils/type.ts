@@ -96,3 +96,13 @@ export type Insight = {
   concerning: boolean;
 };
 export type Insights = Insight[];
+
+export type TopicIdea = {
+  id: string;
+  appoint_id: string;
+  title: string;
+  content: string | null;
+  created_at: string;
+  updated_at: string;
+  done: boolean;
+};

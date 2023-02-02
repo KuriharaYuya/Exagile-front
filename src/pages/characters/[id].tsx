@@ -4,7 +4,6 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TextField,
 } from "@mui/material";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
@@ -19,6 +18,7 @@ import {
   fetchUpdateCharacter,
 } from "../../apis/characters";
 import { fetchUpdateTopic } from "../../apis/topic";
+import TopicIdeaTable from "../../components/topicIdeas/topicIdeaTable";
 import { requestShowCharacter } from "../../features/character/character";
 import {
   updateCharacterDetails,
@@ -203,6 +203,11 @@ const CharacterDetail = (props: CharacterDetailProps) => {
           </div>
         </>
       </div>
+      <br />
+      <br />
+      <TopicIdeaTable characterId={characterId} />
+      <br />
+      <br />
       <div>
         <p>topics</p>
         <Table>

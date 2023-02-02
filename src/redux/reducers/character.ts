@@ -3,13 +3,19 @@ import {
   initialCharacterState,
   initialTopicState,
 } from "../../utils/initialStates";
-import { Character, CharacterTopics, Communities } from "../../utils/type";
+import {
+  Character,
+  CharacterTopics,
+  Communities,
+  TopicIdea,
+} from "../../utils/type";
 
 const communitiesState = [
   {
     userId: "",
     id: "",
     characterId: "",
+    name: "",
   },
 ];
 
@@ -19,10 +25,12 @@ const characterSlice = createSlice({
     character: initialCharacterState,
     communities: communitiesState,
     topics: [initialTopicState],
+    topicIdeas: { ideas: [{}], length: 0 },
   } as {
     character: Character;
     communities: Communities;
     topics: CharacterTopics;
+    topicIdeas: { ideas: TopicIdea[]; length: number };
   },
   reducers: {
     updateCharacterDetails: (state, action) => {
@@ -37,10 +45,18 @@ const characterSlice = createSlice({
       state.communities = action.payload;
       return state;
     },
+    updateTopicIdeas: (state, action) => {
+      state.topicIdeas = action.payload;
+      return state;
+    },
   },
 });
 
-export const { updateCharacterDetails, updateTopics, updateCommunities } =
-  characterSlice.actions;
+export const {
+  updateCharacterDetails,
+  updateTopics,
+  updateCommunities,
+  updateTopicIdeas,
+} = characterSlice.actions;
 
 export default characterSlice.reducer;
