@@ -28,13 +28,6 @@ const Insights = ({ appointId }: Props) => {
     setEditingInsight({ tgtInsight, columnName });
   };
   useEffect(() => {
-    if (editingInsight && editingInsight.tgtInsight?.title === "Untitled") {
-      // TODO mapされているinsightの一番上のtitleにフォーカスしたい
-      setEditingInsight({
-        tgtInsight: insights[0],
-        columnName: "title",
-      });
-    }
     if (inputRef.current) {
       inputRef.current.focus();
     }
