@@ -24,5 +24,5 @@ const fetchCurrentUser = async () => {
     (res) => res.data.user
   );
   store.dispatch(loginSuccess(current_user));
-  Router.push("/");
+  Router.push("/calendar");
 };
