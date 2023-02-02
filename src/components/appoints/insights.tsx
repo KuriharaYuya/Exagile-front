@@ -37,7 +37,6 @@ const Insights = ({ appointId }: Props) => {
   }, [editingInsight]);
 
   const handleBlur = async (insight: Insight) => {
-    // TODO fetching API
     await fetchInsightUpdate(insight);
     setEditingInsight({ tgtInsight: undefined, columnName: "" });
   };
