@@ -54,7 +54,6 @@ const CharacterForm = () => {
       (async () => {
         await requestCharacterSearch(searchKeyword, id);
         const characters = store.getState().appointReducer.characters;
-        // TODO 既に存在する配列のいずれかに該当するのであれば設定しない
         setDisplayCharacters(characters);
         const isNotTagExist = () => {
           return (
@@ -193,7 +192,6 @@ const CharacterForm = () => {
     await fetchDeleteTopic(topicId);
   };
   const createTagHandler = async (Keyword: string) => {
-    // TODO ここで追加したら、キーワードをクリアにする
     await requestCreateCharacter(Keyword, id);
     setSearchKeyword("");
     setSuggestion("");

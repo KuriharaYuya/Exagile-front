@@ -78,7 +78,6 @@ export const fetchDeleteCharactersCommunities = async (
   characterId: string
 ) => {
   return await axios
-    // TODO キャラクターコントーラーにおいて、communityのunregisterアクションを作成して完了
     .post(unregisterCommunity, {
       character: { community_id: communityId, character_id: characterId },
     })

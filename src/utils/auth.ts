@@ -1,4 +1,9 @@
-import { Auth, getAuth, signInWithPopup } from "firebase/auth";
+import {
+  Auth,
+  getAuth,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import { fetchLogin, fetchLogout, fetchSignUp } from "../apis/auth";
 import { provider } from "../libs/firebase/init";
 
@@ -11,7 +16,7 @@ export const getAccessToken = async () => {
 export const signUpWithGoogle = async () => {
   // サインアップ
   await signInWithPopup(auth, provider);
-  // トークンを取得してログイン
+  // googleでsignupするとfirebaseとしてはログイン扱いになってるので、tokenを取得してserverに投げる
   return getAccessToken().then(async (token) => {
     const accessToken: string = token;
     const signUppedUser = await fetchSignUp(accessToken).then(
@@ -43,4 +48,17 @@ const getCookie = (name: string): string | undefined => {
 
 export const logout = () => {
   fetchLogout();
+};
+
+export const signInWithEmail = async (email: string, password: string) => {
+  return signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      const idToken = user.getIdToken();
+      return idToken;
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
 };

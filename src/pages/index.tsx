@@ -1,35 +1,16 @@
 import Router from "next/router";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchSessionCheck } from "../apis/auth";
-import Calender from "../components/calender";
-import { requestLogout } from "../features/auth/logout";
-import { isLoggedIn } from "../utils/auth";
+import React from "react";
+import LoginButton from "../components/auth/loginButton";
+import SignupButton from "../components/auth/signupButton";
 
-export default function Home() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    (async () => {
-      await fetchSessionCheck().then((data) => data.currentUser);
-      const loggedIn = isLoggedIn();
-      if (!loggedIn) {
-        Router.push("/auth");
-      }
-    })();
-  }, []);
-  const handleLogout = () => {
-    dispatch(requestLogout());
-    Router.push("/auth");
-  };
+const Home = () => {
   return (
     <>
-      <h1>ホームです！</h1>
-      <Calender />
-      <button onClick={handleLogout}>ログアウト</button>
-      <br />
-      <button onClick={() => Router.push("/characters")}>
-        キャラクターの一覧へ
-      </button>
+      <div>ホームだぜ</div>
+      <LoginButton />
+      <SignupButton />
     </>
   );
-}
+};
+
+export default Home;

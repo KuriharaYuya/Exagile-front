@@ -26,6 +26,7 @@ import {
   updateTopics,
 } from "../../redux/reducers/character";
 import store, { RootState } from "../../redux/store";
+import { calendarPath } from "../../utils/routes";
 import { Communities, Community, Topic } from "../../utils/type";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -265,7 +266,7 @@ const CharacterDetail = (props: CharacterDetailProps) => {
           </TableBody>
         </Table>
       </div>
-      <button onClick={() => Router.push("/")}>ホームに戻る</button>
+      <button onClick={() => Router.push(calendarPath)}>ホームに戻る</button>
       <button onClick={deleteHandler}>delete character</button>
     </>
   );
