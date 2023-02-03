@@ -105,4 +105,5 @@ export type TopicIdea = {
   created_at: string;
   updated_at: string;
   done: boolean;
+  idea_type: string;
 };
