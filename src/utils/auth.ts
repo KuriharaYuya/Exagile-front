@@ -54,13 +54,11 @@ export const signInWithEmail = async (email: string, password: string) => {
   return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log(user, "user");
       const idToken = user.getIdToken();
       return idToken;
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
     });
 };
