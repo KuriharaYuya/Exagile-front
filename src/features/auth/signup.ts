@@ -1,21 +1,30 @@
-import Router from "next/router";
-import { fetchLogin } from "../../apis/auth";
+import { fetchLogin, fetchSignUp } from "../../apis/auth";
 import { loginSuccess } from "../../redux/reducers/auth";
 import store from "../../redux/store";
 import { getAccessToken, signUpWithGoogle } from "../../utils/auth";
+import { signUpWithEmail } from "../../utils/firebase/auth";
 
-// actionをこのように扱うのは違うかな。redux-toolkitのDocを読もう https://redux-toolkit.js.org/tutorials/typescript#define-slice-state-and-action-types
-export const requestRegister = () => {
-  const setSignup = async () => {
-    const signUppedUser = await signUpWithGoogle();
-    getAccessToken().then((token) => {
-      fetchLogin(token);
-    });
-    store.dispatch(loginSuccess(signUppedUser));
-    Router.push("/");
-  };
-  setSignup();
-  return {
-    type: loginSuccess.type,
-  };
+export const requestRegisterWithGoogle = async () => {
+  // ここでuser登録
+  const signUppedUser = await signUpWithGoogle();
+  // ここから下でuserをログインさせてる
+  await getAccessToken().then((token) => {
+    fetchLogin(token);
+  });
+  store.dispatch(loginSuccess(signUppedUser));
+};
+
+type onSubmitProps = {
+  email: string;
+  password: string;
+  username: string;
+};
+
+export const requestRegisterWithEmail = async (userData: onSubmitProps) => {
+  const { email, password, username } = userData;
+  const idToken = await signUpWithEmail(email, password);
+  await fetchSignUp(idToken, username);
+  // ログイン
+  await fetchLogin(idToken);
+  store.dispatch(loginSuccess(idToken));
 };

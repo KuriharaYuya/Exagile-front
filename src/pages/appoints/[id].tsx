@@ -3,6 +3,7 @@ import Router from "next/router";
 import React from "react";
 import { fetchAppointDelete } from "../../apis/appoint";
 import Appoint from "../../components/appoints/appointDetail";
+import { calendarPath } from "../../utils/routes";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const appointId: string = context.params!.id as string;
@@ -16,12 +17,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const AppointDetail = ({ appointId }: { appointId: string }) => {
   const onBackCalenderHandler = () => {
-    Router.push("/");
+    Router.push(calendarPath);
   };
 
   const onDeleteHandler = () => {
     fetchAppointDelete(appointId);
-    Router.push("/");
+    Router.push(calendarPath);
   };
 
   return (
