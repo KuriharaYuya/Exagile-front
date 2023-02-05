@@ -11,8 +11,8 @@ import {
 import { calendarPath } from "../utils/routes";
 const Login = () => {
   const dispatch = useDispatch();
-  const handleLoginWithGoogle = () => {
-    dispatch(requestLoginWithGoogle());
+  const handleLoginWithGoogle = async () => {
+    await requestLoginWithGoogle();
   };
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = async (formData: any) => {
@@ -38,7 +38,6 @@ const Login = () => {
           Emailでログイン
         </Button>
       </form>
-      <SignupButton />
     </>
   );
 };

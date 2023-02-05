@@ -1,16 +1,27 @@
+import { Button, Modal } from "@mui/material";
 import Router from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { requestLogout } from "../../features/auth/logout";
 import { homePath } from "../../utils/routes";
 
 const LogoutButton = () => {
   const dispatch = useDispatch();
-  const handleLogout = () => {
-    dispatch(requestLogout());
-    Router.push(homePath);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
   };
-  return <button onClick={handleLogout}>ログアウト</button>;
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleLogout = () => {
+    // dispatch(requestLogout());
+  };
+  return (
+    <>
+      <button onClick={handleOpen}>ログアウト</button>
+    </>
+  );
 };
 
 export default LogoutButton;

@@ -1,12 +1,23 @@
+import { Button } from "@mui/material";
 import Router from "next/router";
 import React from "react";
+import { loginPath } from "../../utils/routes";
 
 const LoginButton = () => {
   const jumpLoginPageHandler = () => {
-    Router.push("/login");
+    Router.push(loginPath);
   };
 
-  return <button onClick={jumpLoginPageHandler}>ログイン</button>;
+  return (
+    <Button
+      variant="outlined"
+      color="primary"
+      onClick={jumpLoginPageHandler}
+      sx={{ mr: 2 }}
+    >
+      Login
+    </Button>
+  );
 };
 
 export default LoginButton;

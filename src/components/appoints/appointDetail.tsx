@@ -35,11 +35,9 @@ const AppointDetail = ({ appointId }: { appointId: string }) => {
     (async () => {
       await requestAppointDetail(appointId);
     })();
-    setOnChanging(false);
     const handleRouteChange = (url: string) => {
       requestUpdateAppoint();
     };
-
     Router.events.on("routeChangeStart", handleRouteChange);
     return () => {
       Router.events.off("routeChangeStart", handleRouteChange);
