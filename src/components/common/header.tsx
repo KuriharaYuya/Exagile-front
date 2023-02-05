@@ -24,11 +24,9 @@ import {
   loginPath,
   signupPath,
 } from "../../utils/routes";
-import { Modal } from "@mui/material";
-import { useDispatch } from "react-redux";
 import { requestLogout } from "../../features/auth/logout";
 import ConfirmationModal from "./confirmationModal";
-
+import styles from "./header.module.scss";
 type Props = {
   isLoggedIn: boolean;
 };
@@ -50,8 +48,6 @@ const Header = ({ isLoggedIn }: Props) => {
       setMenuItems(undefined);
     }
   }, [isLoggedIn]);
-  // {name: "",path: ""}
-  // {name: "Log out",path: "/"}
   const settings = ["Profile", "Account", "Dashboard", "Logout"];
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -92,7 +88,11 @@ const Header = ({ isLoggedIn }: Props) => {
         execFunc={handleLogout}
         open={open}
       />
-      <AppBar position="static" style={{ backgroundColor: "red" }}>
+      <AppBar
+        position="static"
+        style={{ backgroundColor: "red" }}
+        className={styles.header}
+      >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -113,48 +113,49 @@ const Header = ({ isLoggedIn }: Props) => {
             >
               Exagile
             </Typography>
-
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={() => handleCloseNavMenu()}
-                sx={{
-                  display: { xs: "block", md: "none" },
-                }}
-              >
-                {menuItems
-                  ?.filter((item) => item.path !== pathname)
-                  .map((item, index) => (
-                    <MenuItem
-                      key={index}
-                      onClick={() => handleCloseNavMenu(item.path)}
-                    >
-                      <Typography textAlign="center">{item.name}</Typography>
-                    </MenuItem>
-                  ))}
-              </Menu>
-            </Box>
+            {isLoggedIn && (
+              <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleOpenNavMenu}
+                  color="inherit"
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorElNav}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                  open={Boolean(anchorElNav)}
+                  onClose={() => handleCloseNavMenu()}
+                  sx={{
+                    display: { xs: "block", md: "none" },
+                  }}
+                >
+                  {menuItems
+                    ?.filter((item) => item.path !== pathname)
+                    .map((item, index) => (
+                      <MenuItem
+                        key={index}
+                        onClick={() => handleCloseNavMenu(item.path)}
+                      >
+                        <Typography textAlign="center">{item.name}</Typography>
+                      </MenuItem>
+                    ))}
+                </Menu>
+              </Box>
+            )}
             <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
             <Typography
               variant="h5"
@@ -221,7 +222,10 @@ const Header = ({ isLoggedIn }: Props) => {
                 </Menu>
               </Box>
             ) : (
-              <Box sx={{ display: { xs: "flex", md: "flex" } }}>
+              <Box
+                sx={{ display: { xs: "flex", md: "flex" } }}
+                className={styles.buttons}
+              >
                 {pathname !== loginPath && <LoginButton />}
                 {pathname !== signupPath && <SignupButton />}
               </Box>
