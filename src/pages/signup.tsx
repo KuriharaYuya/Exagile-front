@@ -1,21 +1,19 @@
 import { Button, TextField } from "@mui/material";
 import Router from "next/router";
-import React, { useRef } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 
-import { useDispatch } from "react-redux";
 import LoginButton from "../components/auth/loginButton";
 import {
   requestRegisterWithEmail,
   requestRegisterWithGoogle,
 } from "../features/auth/signup";
-import { signUpWithEmail } from "../utils/firebase/auth";
 import { calendarPath } from "../utils/routes";
 
 const Signup = () => {
-  const handleRegister = () => {
+  const handleRegister = async () => {
     // 登録後自動ログインまで実行
-    requestRegisterWithGoogle();
+    await requestRegisterWithGoogle();
     Router.push(calendarPath);
   };
   const { register, handleSubmit, reset } = useForm();
@@ -45,7 +43,6 @@ const Signup = () => {
         <Button variant="contained" color="primary" type="submit">
           Emailでユーザー登録
         </Button>
-        <LoginButton />
       </form>
     </>
   );

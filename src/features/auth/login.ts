@@ -14,14 +14,7 @@ interface User {
   };
 }
 
-export const requestLoginWithGoogle = () => {
-  fetchCurrentUserWithGoogle();
-  return {
-    type: loginSuccess.type,
-  };
-};
-
-const fetchCurrentUserWithGoogle = async () => {
+export const requestLoginWithGoogle = async () => {
   const current_user: User = await signInWithGoogle().then(
     (res) => res.data.user
   );

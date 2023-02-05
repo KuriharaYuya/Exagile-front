@@ -79,55 +79,50 @@ const Insights = ({ appointId }: Props) => {
       <br />
       <div>
         <button onClick={addInsightHandler}>add insight</button>
-        {insights.map((insight) => {
+        {insights.map((insight, index) => {
           const tgtInsight = editingInsight.tgtInsight;
           return (
-            <>
-              <h2>
-                {tgtInsight?.id === insight.id &&
-                editingInsight.columnName === "title" ? (
-                  <input
-                    type="text"
-                    ref={inputRef}
-                    value={insight.title}
-                    onBlur={() => handleBlur(insight)}
-                    onChange={(e) => handleChange(e, insight)}
-                  />
-                ) : (
-                  <p onClick={() => handleSetEditingInsight(insight, "title")}>
-                    {insight.title}
-                  </p>
-                )}
-                {tgtInsight?.id === insight.id &&
-                editingInsight.columnName === "content" ? (
-                  <textarea
-                    ref={textareaRef}
-                    value={insight.content!}
-                    onBlur={() => handleBlur(insight)}
-                    onChange={(e) => handleChange(e, insight)}
-                  />
-                ) : (
-                  <p
-                    onClick={() => handleSetEditingInsight(insight, "content")}
-                  >
-                    {insight?.content ? (
-                      insight.content
-                    ) : (
-                      <textarea
-                        placeholder="コンテンツを記入しよう"
-                        onClick={() =>
-                          handleSetEditingInsight(insight, "content")
-                        }
-                      ></textarea>
-                    )}
-                  </p>
-                )}
-                <button onClick={() => onDeleteHandler(insight.id)}>
-                  削除する
-                </button>
-              </h2>
-              <br />
-            </>
+            <h2 key={index}>
+              {tgtInsight?.id === insight.id &&
+              editingInsight.columnName === "title" ? (
+                <input
+                  type="text"
+                  ref={inputRef}
+                  value={insight.title}
+                  onBlur={() => handleBlur(insight)}
+                  onChange={(e) => handleChange(e, insight)}
+                />
+              ) : (
+                <p onClick={() => handleSetEditingInsight(insight, "title")}>
+                  {insight.title}
+                </p>
+              )}
+              {tgtInsight?.id === insight.id &&
+              editingInsight.columnName === "content" ? (
+                <textarea
+                  ref={textareaRef}
+                  value={insight.content!}
+                  onBlur={() => handleBlur(insight)}
+                  onChange={(e) => handleChange(e, insight)}
+                />
+              ) : (
+                <p onClick={() => handleSetEditingInsight(insight, "content")}>
+                  {insight?.content ? (
+                    insight.content
+                  ) : (
+                    <textarea
+                      placeholder="コンテンツを記入しよう"
+                      onClick={() =>
+                        handleSetEditingInsight(insight, "content")
+                      }
+                    ></textarea>
+                  )}
+                </p>
+              )}
+              <button onClick={() => onDeleteHandler(insight.id)}>
+                削除する
+              </button>
+            </h2>
           );
         })}
       </div>

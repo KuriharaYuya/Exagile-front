@@ -46,10 +46,6 @@ const getCookie = (name: string): string | undefined => {
   return undefined;
 };
 
-export const logout = () => {
-  fetchLogout();
-};
-
 export const signInWithEmail = async (email: string, password: string) => {
   return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
