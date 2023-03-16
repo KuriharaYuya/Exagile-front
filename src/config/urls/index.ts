@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const DEFAULT_API_LOCALHOST = "http://localhost:3001/api/v1";
 export const DOCKER_API_SERVER = "http://api:3001/api/v1";
 // api
@@ -47,3 +49,10 @@ export const archives = `${insights}/archives`;
 export const topicIdeas = `${DEFAULT_API_LOCALHOST}/topic_ideas`;
 export const topicIdea = (topicIdeaId: string) =>
   `${DEFAULT_API_LOCALHOST}/topic_ideas/${topicIdeaId}`;
+export const apiLocalhost = axios.create({
+  baseURL: DEFAULT_API_LOCALHOST,
+  headers: {
+    "Access-Control-Allow-Origin": "https://poke-line.vercel.app",
+  },
+  withCredentials: true,
+});

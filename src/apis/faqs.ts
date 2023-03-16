@@ -33,7 +33,7 @@ export const fetchAddFaq = async (
       break;
   }
   return await axios.post(faqs, {
-    faq: { name, content, faq_type: type, appoint_id: appointId },
+    faq: { name, content, appoint_id: appointId },
   });
 };
 
